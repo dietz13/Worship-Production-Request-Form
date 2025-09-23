@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE ahtml>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,21 +13,35 @@
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6;
         }
-        .modal {
-            display: none;
-        }
-        .modal.open {
+        .modal-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
             display: flex;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-4">
 
-    <!-- Main Form Container -->
-    <div class="bg-white rounded-xl shadow-lg w-full max-w-2xl p-8 transform transition-all duration-300 hover:shadow-xl">
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">Creative Arts Team Request</h1>
+    <!-- Main Container -->
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-4xl p-8 transform transition-all duration-300 hover:shadow-xl space-y-8">
+        <!-- Branding Header -->
+        <div class="text-center">
+            <div class="flex flex-col items-center justify-center mb-4">
+                <img src="https://avatars.planningcenteronline.com/uploads/organization/41987-1346207477/avatar.4.png" alt="Providence City Church Logo" class="w-48 sm:w-64 mb-4 shadow-md rounded-xl">
+                <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">Creative Arts Team</h1>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-700 mb-2">Request Form & Dashboard</h2>
             <p class="text-gray-600">Please fill out this form to request supplies, repairs, or upgrades.</p>
+        </div>
+
+        <!-- User ID Display -->
+        <div class="bg-emerald-100 p-4 rounded-lg text-sm text-emerald-800 text-center">
+            <span class="font-semibold">Your User ID:</span> <span id="userIdDisplay" class="break-all"></span>
         </div>
 
         <!-- The main form element -->
@@ -36,78 +50,252 @@
             <!-- Requester Name -->
             <div>
                 <label for="requesterName" class="block text-sm font-medium text-gray-700 mb-1">Requester Name</label>
-                <input type="text" id="requesterName" name="requesterName" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200">
+                <input type="text" id="requesterName" name="requesterName" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200">
             </div>
 
             <!-- Request Date -->
             <div>
                 <label for="requestDate" class="block text-sm font-medium text-gray-700 mb-1">Request Date</label>
-                <input type="date" id="requestDate" name="requestDate" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200">
+                <input type="date" id="requestDate" name="requestDate" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200">
             </div>
 
             <!-- Request Type (Main Category) -->
             <div>
-                <label for="requestType" class="block text-sm font-medium text-gray-700 mb-2">Request Type</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Request Type</label>
                 <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
                     <label class="flex items-center space-x-2 bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
-                        <input type="radio" name="requestType" value="Supplies" required class="text-indigo-600">
+                        <input type="radio" name="requestType" value="Supplies" required class="text-emerald-600">
                         <span class="text-gray-700 font-medium">Supplies</span>
                     </label>
                     <label class="flex items-center space-x-2 bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
-                        <input type="radio" name="requestType" value="Repairs" class="text-indigo-600">
+                        <input type="radio" name="requestType" value="Repairs" class="text-emerald-600">
                         <span class="text-gray-700 font-medium">Repairs</span>
                     </label>
                     <label class="flex items-center space-x-2 bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
-                        <input type="radio" name="requestType" value="Upgrades" class="text-indigo-600">
+                        <input type="radio" name="requestType" value="Upgrades" class="text-emerald-600">
                         <span class="text-gray-700 font-medium">Upgrades</span>
                     </label>
                 </div>
             </div>
 
-            <!-- Sub-category dropdowns (initially hidden) -->
-            <div id="suppliesSubcategory" class="hidden">
-                <label for="subCategorySupplies" class="block text-sm font-medium text-gray-700 mb-1">Supplies Category</label>
-                <select id="subCategorySupplies" name="subCategory" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200">
-                    <option value="" disabled selected>Select a supplies category</option>
-                    <option value="Audio">Audio (e.g., cables, batteries, gaff tape)</option>
-                    <option value="Lighting">Lighting (e.g., gels, bulbs, haze fluid)</option>
-                    <option value="Instruments">Instruments (e.g., drumsticks, guitar strings)</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-            
-            <div id="repairsSubcategory" class="hidden">
-                <label for="subCategoryRepairs" class="block text-sm font-medium text-gray-700 mb-1">Repairs Category</label>
-                <select id="subCategoryRepairs" name="subCategory" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200">
-                    <option value="" disabled selected>Select a repairs category</option>
-                    <option value="Audio Equipment">Audio Equipment (e.g., microphones, speakers)</option>
-                    <option value="Lighting Fixtures">Lighting Fixtures (e.g., stage lights, effect lights)</option>
-                    <option value="Instruments">Instruments (e.g., keys, guitar neck)</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-
-            <div id="upgradesSubcategory" class="hidden">
-                <label for="subCategoryUpgrades" class="block text-sm font-medium text-gray-700 mb-1">Upgrades Category</label>
-                <select id="subCategoryUpgrades" name="subCategory" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200">
-                    <option value="" disabled selected>Select an upgrades category</option>
-                    <option value="Audio System">Audio System (e.g., new wireless system)</option>
-                    <option value="Lighting System">Lighting System (e.g., new DMX controller)</option>
-                    <option value="Software">Software (e.g., new presentation software)</option>
-                    <option value="Other">Other</option>
-                </select>
+            <!-- Sub-category menus (initially hidden) -->
+            <div id="subcategories" class="hidden space-y-4">
+                <!-- Supplies Sub-category -->
+                <div id="suppliesSubcategory" class="hidden">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Supplies Category</label>
+                    <div class="space-y-2">
+                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
+                            <summary class="font-medium text-gray-700 flex justify-between items-center">Audio Supplies</summary>
+                            <div class="mt-2 space-y-2">
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="supplies_audio[]" value="Cables" data-link="https://www.amazon.com/dp/B002K88E7K" class="rounded text-emerald-600">
+                                    <span>Cables</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="supplies_audio[]" value="Batteries" data-link="https://www.amazon.com/dp/B003L4972E" class="rounded text-emerald-600">
+                                    <span>Batteries</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="supplies_audio[]" value="Gaff Tape" data-link="https://www.amazon.com/dp/B003I005V8" class="rounded text-emerald-600">
+                                    <span>Gaff Tape</span>
+                                </label>
+                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
+                                    <label class="flex items-center space-x-2 text-gray-700">
+                                        <input type="checkbox" name="supplies_audio_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                        <span>Other:</span>
+                                    </label>
+                                    <input type="text" name="supplies_audio_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                    <input type="url" name="supplies_audio_other_link" placeholder="Paste link here (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                </div>
+                            </div>
+                        </details>
+                        <!-- Other Supplies Categories -->
+                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
+                            <summary class="font-medium text-gray-700 flex justify-between items-center">Video Supplies</summary>
+                            <div class="mt-2 space-y-2">
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="supplies_video[]" value="HDMI Cables" data-link="https://www.amazon.com/dp/B08V819G8W" class="rounded text-emerald-600">
+                                    <span>HDMI Cables</span>
+                                </label>
+                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
+                                    <label class="flex items-center space-x-2 text-gray-700">
+                                        <input type="checkbox" name="supplies_video_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                        <span>Other:</span>
+                                    </label>
+                                    <input type="text" name="supplies_video_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                    <input type="url" name="supplies_video_other_link" placeholder="Paste link here (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                </div>
+                            </div>
+                        </details>
+                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
+                            <summary class="font-medium text-gray-700 flex justify-between items-center">Lighting Supplies</summary>
+                            <div class="mt-2 space-y-2">
+                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
+                                    <label class="flex items-center space-x-2 text-gray-700">
+                                        <input type="checkbox" name="supplies_lighting_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                        <span>Other:</span>
+                                    </label>
+                                    <input type="text" name="supplies_lighting_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                    <input type="url" name="supplies_lighting_other_link" placeholder="Paste link here (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                <!-- Repairs Sub-category -->
+                <div id="repairsSubcategory" class="hidden">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Repairs Category</label>
+                    <div class="space-y-2">
+                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
+                            <summary class="font-medium text-gray-700 flex justify-between items-center">Audio Equipment</summary>
+                            <div class="mt-2 space-y-2">
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="repairs_audio[]" value="Microphone" class="rounded text-emerald-600">
+                                    <span>Microphone</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="repairs_audio[]" value="Speaker" class="rounded text-emerald-600">
+                                    <span>Speaker</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="repairs_audio[]" value="Mixer" class="rounded text-emerald-600">
+                                    <span>Mixer</span>
+                                </label>
+                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
+                                    <label class="flex items-center space-x-2 text-gray-700">
+                                        <input type="checkbox" name="repairs_audio_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                        <span>Other:</span>
+                                    </label>
+                                    <input type="text" name="repairs_audio_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                </div>
+                            </div>
+                        </details>
+                        <!-- Other Repairs Categories -->
+                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
+                            <summary class="font-medium text-gray-700 flex justify-between items-center">Video Equipment</summary>
+                            <div class="mt-2 space-y-2">
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="repairs_video[]" value="Camera" class="rounded text-emerald-600">
+                                    <span>Camera</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="repairs_video[]" value="Projector" class="rounded text-emerald-600">
+                                    <span>Projector</span>
+                                </label>
+                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
+                                    <label class="flex items-center space-x-2 text-gray-700">
+                                        <input type="checkbox" name="repairs_video_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                        <span>Other:</span>
+                                    </label>
+                                    <input type="text" name="repairs_video_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                </div>
+                            </div>
+                        </details>
+                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
+                            <summary class="font-medium text-gray-700 flex justify-between items-center">Lighting Fixtures</summary>
+                            <div class="mt-2 space-y-2">
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="repairs_lighting[]" value="Stage Lights" class="rounded text-emerald-600">
+                                    <span>Stage Lights</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="repairs_lighting[]" value="DMX Controller" class="rounded text-emerald-600">
+                                    <span>DMX Controller</span>
+                                </label>
+                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
+                                    <label class="flex items-center space-x-2 text-gray-700">
+                                        <input type="checkbox" name="repairs_lighting_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                        <span>Other:</span>
+                                    </label>
+                                    <input type="text" name="repairs_lighting_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                <!-- Upgrades Sub-category -->
+                <div id="upgradesSubcategory" class="hidden">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Upgrades Category</label>
+                    <div class="space-y-2">
+                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
+                            <summary class="font-medium text-gray-700 flex justify-between items-center">Audio System</summary>
+                            <div class="mt-2 space-y-2">
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="upgrades_audio[]" value="Wireless Mic System" class="rounded text-emerald-600">
+                                    <span>Wireless Mic System</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="upgrades_audio[]" value="Speakers" class="rounded text-emerald-600">
+                                    <span>Speakers</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="upgrades_audio[]" value="Mixing Console" class="rounded text-emerald-600">
+                                    <span>Mixing Console</span>
+                                </label>
+                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
+                                    <label class="flex items-center space-x-2 text-gray-700">
+                                        <input type="checkbox" name="upgrades_audio_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                        <span>Other:</span>
+                                    </label>
+                                    <input type="text" name="upgrades_audio_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                </div>
+                            </div>
+                        </details>
+                        <!-- Other Upgrades Categories -->
+                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
+                            <summary class="font-medium text-gray-700 flex justify-between items-center">Video System</summary>
+                            <div class="mt-2 space-y-2">
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="upgrades_video[]" value="Projector" class="rounded text-emerald-600">
+                                    <span>Projector</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="upgrades_video[]" value="Live Stream Rig" class="rounded text-emerald-600">
+                                    <span>Live Stream Rig</span>
+                                </label>
+                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
+                                    <label class="flex items-center space-x-2 text-gray-700">
+                                        <input type="checkbox" name="upgrades_video_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                        <span>Other:</span>
+                                    </label>
+                                    <input type="text" name="upgrades_video_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                </div>
+                            </div>
+                        </details>
+                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
+                            <summary class="font-medium text-gray-700 flex justify-between items-center">Lighting System</summary>
+                            <div class="mt-2 space-y-2">
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="upgrades_lighting[]" value="Stage Lights" class="rounded text-emerald-600">
+                                    <span>Stage Lights</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-gray-700">
+                                    <input type="checkbox" name="upgrades_lighting[]" value="DMX Controller" class="rounded text-emerald-600">
+                                    <span>DMX Controller</span>
+                                </label>
+                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
+                                    <label class="flex items-center space-x-2 text-gray-700">
+                                        <input type="checkbox" name="upgrades_lighting_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                        <span>Other:</span>
+                                    </label>
+                                    <input type="text" name="upgrades_lighting_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
             </div>
 
             <!-- Item(s) Description -->
             <div>
                 <label for="itemDescription" class="block text-sm font-medium text-gray-700 mb-1">Item(s) Description</label>
-                <textarea id="itemDescription" name="itemDescription" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"></textarea>
+                <textarea id="itemDescription" name="itemDescription" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200"></textarea>
             </div>
 
             <!-- Urgency -->
             <div>
                 <label for="urgency" class="block text-sm font-medium text-gray-700 mb-1">Urgency</label>
-                <select id="urgency" name="urgency" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200">
+                <select id="urgency" name="urgency" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200">
                     <option value="" disabled selected>Select urgency</option>
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
@@ -115,30 +303,310 @@
                 </select>
             </div>
 
-            <!-- Link to Item -->
-            <div>
-                <label for="itemLink" class="block text-sm font-medium text-gray-700 mb-1">Link to Item (Optional)</label>
-                <input type="url" id="itemLink" name="itemLink" placeholder="e.g., https://amazon.com/item-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200">
-            </div>
-
             <!-- Submit Button -->
-            <button type="submit" class="w-full bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">Submit Request</button>
+            <button type="button" id="submitBtn" class="w-full bg-emerald-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-200">Submit Request</button>
         </form>
-    </div>
 
-    <!-- Success/Error Message Modal -->
-    <div id="statusModal" class="modal fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-lg shadow-xl p-8 w-full max-w-sm">
-            <h2 id="modalTitle" class="text-2xl font-bold mb-4 text-center"></h2>
-            <p id="modalMessage" class="text-center text-gray-600 mb-6"></p>
-            <div class="flex justify-center">
-                <button id="closeModalBtn" class="bg-indigo-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-200">Close</button>
+        <!-- Requests Log Section -->
+        <div class="mt-8 pt-8 border-t border-gray-300">
+            <h3 class="text-2xl font-bold text-gray-700 mb-4">Requests Log</h3>
+            <div id="requestsContainer" class="space-y-4">
+                <p class="text-gray-500 text-center" id="loadingMessage">Loading requests...</p>
             </div>
         </div>
     </div>
 
-    <script>
-        // Set the request date to the current date
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal-overlay fixed inset-0 bg-gray-600 bg-opacity-75 items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg shadow-xl p-8 w-full max-w-sm">
+            <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Confirm Your Request</h2>
+            <div id="summaryContent" class="text-gray-700 mb-6 space-y-2"></div>
+            <div class="flex justify-between space-x-4">
+                <button id="cancelConfirmBtn" class="flex-1 bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg hover:bg-gray-400 transition-colors duration-200">Cancel</button>
+                <button id="sendRequestBtn" class="flex-1 bg-emerald-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-emerald-700 transition-colors duration-200">Send Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Modal -->
+    <div id="statusModal" class="modal-overlay fixed inset-0 bg-gray-600 bg-opacity-75 items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg shadow-xl p-8 w-full max-w-sm">
+            <h2 id="modalTitle" class="text-2xl font-bold mb-4 text-center text-gray-800"></h2>
+            <p id="modalMessage" class="text-center text-gray-600 mb-6"></p>
+            <div class="flex justify-center">
+                <button id="closeModalBtn" class="bg-emerald-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-emerald-700 transition-colors duration-200">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK Imports -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        // Global variables for Firebase
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // --- App Initialization ---
+        setLogLevel('debug'); // Enable debug logging for Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        
+        // References to UI elements
+        const userIdDisplay = document.getElementById('userIdDisplay');
+        const requestsContainer = document.getElementById('requestsContainer');
+        const loadingMessage = document.getElementById('loadingMessage');
+        const confirmModal = document.getElementById('confirmModal');
+        const statusModal = document.getElementById('statusModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        const summaryContent = document.getElementById('summaryContent');
+        const sendRequestBtn = document.getElementById('sendRequestBtn');
+        const cancelConfirmBtn = document.getElementById('cancelConfirmBtn');
+        const requestForm = document.getElementById('requestForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        let currentUserId = null;
+
+        // --- Authentication ---
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUserId = user.uid;
+                userIdDisplay.textContent = currentUserId;
+                console.log("Authenticated with user ID:", currentUserId);
+                setupFirestoreListeners();
+            } else {
+                console.log("No user signed in. Attempting to sign in.");
+                try {
+                    if (initialAuthToken) {
+                        await signInWithCustomToken(auth, initialAuthToken);
+                        console.log("Signed in with custom token.");
+                    } else {
+                        await signInAnonymously(auth);
+                        console.log("Signed in anonymously.");
+                    }
+                } catch (error) {
+                    console.error("Firebase Auth Error:", error);
+                }
+            }
+        });
+
+        // --- Firebase Firestore Functions ---
+        const PUBLIC_COLLECTION_PATH = `/artifacts/${appId}/public/data/requests`;
+
+        function setupFirestoreListeners() {
+            if (!currentUserId) {
+                console.error("Cannot set up listeners: user not authenticated.");
+                return;
+            }
+
+            const q = query(collection(db, PUBLIC_COLLECTION_PATH));
+
+            // Listen for real-time updates to the requests collection
+            onSnapshot(q, (querySnapshot) => {
+                const requests = [];
+                querySnapshot.forEach((doc) => {
+                    requests.push({ id: doc.id, ...doc.data() });
+                });
+                renderRequests(requests);
+            }, (error) => {
+                console.error("Error fetching documents:", error);
+                loadingMessage.textContent = "Error loading requests. Please try again later.";
+            });
+        }
+
+        async function saveRequestToFirestore(data) {
+            try {
+                // Add the user ID and timestamp to the data
+                const requestData = {
+                    ...data,
+                    userId: currentUserId,
+                    timestamp: serverTimestamp()
+                };
+                const docRef = await addDoc(collection(db, PUBLIC_COLLECTION_PATH), requestData);
+                console.log("Document written with ID:", docRef.id);
+                return true;
+            } catch (error) {
+                console.error("Error adding document:", error);
+                return false;
+            }
+        }
+
+        // --- UI Rendering ---
+        function renderRequests(requests) {
+            if (requests.length === 0) {
+                loadingMessage.textContent = "No requests found yet.";
+                return;
+            }
+
+            loadingMessage.classList.add('hidden');
+            requestsContainer.innerHTML = '';
+            
+            // Sort requests by timestamp in descending order
+            requests.sort((a, b) => {
+                const timestampA = a.timestamp ? a.timestamp.toDate() : new Date(0);
+                const timestampB = b.timestamp ? b.timestamp.toDate() : new Date(0);
+                return timestampB - timestampA;
+            });
+
+            requests.forEach(req => {
+                const requestCard = document.createElement('div');
+                requestCard.className = 'bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200';
+                
+                const formattedDate = req.timestamp ? new Date(req.timestamp.toDate()).toLocaleString() : 'N/A';
+                
+                const subCategoryList = req.subCategory ? JSON.parse(req.subCategory).map(item => `<li>${item.name} (${item.subcategory})</li>`).join('') : '';
+
+                requestCard.innerHTML = `
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
+                        <h4 class="text-lg font-bold text-emerald-600">${req.requesterName} - ${req.requestType}</h4>
+                        <span class="text-sm text-gray-500">${formattedDate}</span>
+                    </div>
+                    <div class="text-sm text-gray-700 space-y-1">
+                        <p><span class="font-semibold">Urgency:</span> ${req.urgency}</p>
+                        ${req.itemDescription ? `<p><span class="font-semibold">Description:</span> ${req.itemDescription}</p>` : ''}
+                        ${subCategoryList ? `<p class="mt-4 font-semibold">Selected Items:</p><ul class="list-disc list-inside space-y-1">${subCategoryList}</ul>` : ''}
+                        <p class="text-xs text-gray-400 mt-2">Submitted by: ${req.userId}</p>
+                    </div>
+                `;
+                requestsContainer.appendChild(requestCard);
+            });
+        }
+
+        // --- Event Listeners and Form Logic ---
+        submitBtn.addEventListener('click', async () => {
+            if (!requestForm.checkValidity()) {
+                requestForm.reportValidity();
+                return;
+            }
+
+            // Start pre-submission process
+            modalTitle.textContent = "Processing Request...";
+            modalMessage.textContent = "Please wait while we prepare your submission.";
+            statusModal.classList.add('open');
+            submitBtn.disabled = true;
+
+            const formData = new FormData(requestForm);
+            const data = Object.fromEntries(formData.entries());
+
+            // Collect all selected checkbox values, including custom inputs
+            const selectedItems = [];
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                if (checkbox.checked) {
+                    const nameParts = checkbox.name.split('_');
+                    const categoryType = nameParts[0] || 'Misc';
+                    let subcategory = nameParts[1] || 'General';
+                    let itemValue = checkbox.value;
+                    let itemLink = checkbox.dataset.link || '';
+
+                    if (checkbox.classList.contains('custom-option-checkbox')) {
+                        const customInput = checkbox.closest('.flex').querySelector('input[type="text"]');
+                        const customLinkInput = checkbox.closest('.flex').querySelector('input[type="url"]');
+                        itemValue = customInput ? customInput.value.trim() : 'N/A';
+                        itemLink = customLinkInput ? customLinkInput.value.trim() : '';
+                        subcategory = subcategory + " (Custom)";
+                    }
+                    selectedItems.push({
+                        category: categoryType,
+                        subcategory: subcategory,
+                        name: itemValue,
+                        link: itemLink
+                    });
+                }
+            });
+            data.subCategory = JSON.stringify(selectedItems);
+
+            // Populate and show the confirmation modal
+            statusModal.classList.remove('open');
+            summaryContent.innerHTML = `
+                <p><span class="font-semibold">Requester:</span> ${data.requesterName}</p>
+                <p><span class="font-semibold">Request Type:</span> ${data.requestType}</p>
+                <p><span class="font-semibold">Urgency:</span> ${data.urgency}</p>
+                ${data.itemDescription ? `<p><span class="font-semibold">Description:</span> ${data.itemDescription}</p>` : ''}
+                ${selectedItems.length > 0 ? `<p class="mt-4 font-semibold">Selected Items:</p>
+                <ul class="list-disc list-inside space-y-1">${selectedItems.map(item => `<li>${item.name} (${item.subcategory})</li>`).join('')}</ul>` : ''}
+            `;
+            confirmModal.classList.add('open');
+
+            // Handle confirm and cancel button clicks
+            sendRequestBtn.onclick = async () => {
+                confirmModal.classList.remove('open');
+                const success = await saveRequestToFirestore(data);
+                if (success) {
+                    modalTitle.textContent = "Request Submitted Successfully!";
+                    modalMessage.textContent = "Your request has been saved to the log.";
+                    requestForm.reset();
+                } else {
+                    modalTitle.textContent = "Submission Failed";
+                    modalMessage.textContent = "There was an error submitting your request. Please check the console for details.";
+                }
+                statusModal.classList.add('open');
+                submitBtn.disabled = false;
+            };
+
+            cancelConfirmBtn.onclick = () => {
+                confirmModal.classList.remove('open');
+                submitBtn.disabled = false;
+            };
+        });
+        
+        // Hide modals
+        closeModalBtn.addEventListener('click', () => {
+            statusModal.classList.remove('open');
+        });
+
+        // Form logic to show/hide sub-category dropdowns and toggle description required attribute
+        const requestTypeRadios = document.querySelectorAll('input[name="requestType"]');
+        const suppliesSubcategoryDiv = document.getElementById('suppliesSubcategory');
+        const repairsSubcategoryDiv = document.getElementById('repairsSubcategory');
+        const upgradesSubcategoryDiv = document.getElementById('upgradesSubcategory');
+        const subcategoriesContainer = document.getElementById('subcategories');
+        const itemDescription = document.getElementById('itemDescription');
+
+        requestTypeRadios.forEach(radio => {
+            radio.addEventListener('change', (event) => {
+                subcategoriesContainer.classList.remove('hidden');
+                suppliesSubcategoryDiv.classList.add('hidden');
+                repairsSubcategoryDiv.classList.add('hidden');
+                upgradesSubcategoryDiv.classList.add('hidden');
+
+                if (event.target.value === 'Supplies') {
+                    suppliesSubcategoryDiv.classList.remove('hidden');
+                    itemDescription.removeAttribute('required'); // Un-require for Supplies
+                } else if (event.target.value === 'Repairs') {
+                    repairsSubcategoryDiv.classList.remove('hidden');
+                    itemDescription.setAttribute('required', 'required'); // Require for Repairs
+                } else if (event.target.value === 'Upgrades') {
+                    upgradesSubcategoryDiv.classList.remove('hidden');
+                    itemDescription.setAttribute('required', 'required'); // Require for Upgrades
+                }
+            });
+        });
+
+        // Logic for custom text inputs
+        document.querySelectorAll('.custom-option-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', (event) => {
+                const parentFlex = event.target.closest('.flex');
+                const customInput = parentFlex.querySelector('input[type="text"]');
+                const customLinkInput = parentFlex.querySelector('input[type="url"]');
+                if (event.target.checked) {
+                    if (customInput) customInput.disabled = false;
+                    if (customLinkInput) customLinkInput.disabled = false;
+                    customInput.focus();
+                } else {
+                    if (customInput) customInput.disabled = true;
+                    if (customLinkInput) customLinkInput.disabled = true;
+                    if (customInput) customInput.value = '';
+                    if (customLinkInput) customLinkInput.value = '';
+                }
+            });
+        });
+        
+        // Handle initial form state
         document.addEventListener('DOMContentLoaded', () => {
             const dateInput = document.getElementById('requestDate');
             const today = new Date();
@@ -146,87 +614,6 @@
             const month = String(today.getMonth() + 1).padStart(2, '0');
             const day = String(today.getDate()).padStart(2, '0');
             dateInput.value = `${year}-${month}-${day}`;
-
-            // Handle form submission
-            const form = document.getElementById('requestForm');
-            const modal = document.getElementById('statusModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalMessage = document.getElementById('modalMessage');
-            const closeModalBtn = document.getElementById('closeModalBtn');
-
-            form.addEventListener('submit', async function(event) {
-                event.preventDefault();
-
-                const formData = new FormData(form);
-                const data = Object.fromEntries(formData.entries());
-
-                const formspreeEndpoint = 'https://formspree.io/f/xnnbeqvb';
-
-                try {
-                    const response = await fetch(formspreeEndpoint, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    });
-
-                    if (response.ok) {
-                        modalTitle.textContent = "Request Submitted Successfully!";
-                        modalMessage.innerHTML = `
-                            <p>Thank you for your request. It has been received and will be reviewed shortly.</p>
-                            <p class="mt-4 text-sm text-gray-500">
-                                <span class="font-bold">Summary:</span><br>
-                                Name: ${data.requesterName}<br>
-                                Type: ${data.requestType} > ${data.subCategory || 'N/A'}<br>
-                                Urgency: ${data.urgency}<br>
-                                Description: ${data.itemDescription.substring(0, 50)}...
-                            </p>
-                        `;
-                        form.reset();
-                    } else {
-                        // Handle server-side errors
-                        modalTitle.textContent = "Submission Failed";
-                        modalMessage.textContent = "There was an error submitting your request. Please try again.";
-                    }
-                } catch (error) {
-                    // Handle network errors
-                    console.error('Submission error:', error);
-                    modalTitle.textContent = "Submission Failed";
-                    modalMessage.textContent = "There was an error submitting your request. Please check your connection.";
-                } finally {
-                    modal.classList.add('open');
-                }
-            });
-
-            closeModalBtn.addEventListener('click', () => {
-                modal.classList.remove('open');
-            });
-
-            // Logic to show/hide sub-category dropdowns
-            const requestTypeRadios = document.querySelectorAll('input[name="requestType"]');
-            const suppliesSubcategoryDiv = document.getElementById('suppliesSubcategory');
-            const repairsSubcategoryDiv = document.getElementById('repairsSubcategory');
-            const upgradesSubcategoryDiv = document.getElementById('upgradesSubcategory');
-
-            requestTypeRadios.forEach(radio => {
-                radio.addEventListener('change', (event) => {
-                    // Hide all sub-category dropdowns first
-                    suppliesSubcategoryDiv.classList.add('hidden');
-                    repairsSubcategoryDiv.classList.add('hidden');
-                    upgradesSubcategoryDiv.classList.add('hidden');
-
-                    // Show the relevant sub-category dropdown based on the selected radio button
-                    if (event.target.value === 'Supplies') {
-                        suppliesSubcategoryDiv.classList.remove('hidden');
-                    } else if (event.target.value === 'Repairs') {
-                        repairsSubcategoryDiv.classList.remove('hidden');
-                    } else if (event.target.value === 'Upgrades') {
-                        upgradesSubcategoryDiv.classList.remove('hidden');
-                    }
-                });
-            });
         });
     </script>
 </body>
