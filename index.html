@@ -1,4 +1,4 @@
-<!DOCTYPE ahtml>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,11 +37,6 @@
             </div>
             <h2 class="text-xl sm:text-2xl font-bold text-gray-700 mb-2">Request Form & Dashboard</h2>
             <p class="text-gray-600">Please fill out this form to request supplies, repairs, or upgrades.</p>
-        </div>
-
-        <!-- User ID Display -->
-        <div class="bg-emerald-100 p-4 rounded-lg text-sm text-emerald-800 text-center">
-            <span class="font-semibold">Your User ID:</span> <span id="userIdDisplay" class="break-all"></span>
         </div>
 
         <!-- The main form element -->
@@ -339,25 +334,8 @@
         </div>
     </div>
 
-    <!-- Firebase SDK Imports -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        
-        // Global variables for Firebase
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        // --- App Initialization ---
-        setLogLevel('debug'); // Enable debug logging for Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-        
+    <script>
         // References to UI elements
-        const userIdDisplay = document.getElementById('userIdDisplay');
         const requestsContainer = document.getElementById('requestsContainer');
         const loadingMessage = document.getElementById('loadingMessage');
         const confirmModal = document.getElementById('confirmModal');
@@ -370,68 +348,27 @@
         const requestForm = document.getElementById('requestForm');
         const submitBtn = document.getElementById('submitBtn');
 
-        let currentUserId = null;
+        const LOCAL_STORAGE_KEY = 'creativeArtsRequests';
 
-        // --- Authentication ---
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                currentUserId = user.uid;
-                userIdDisplay.textContent = currentUserId;
-                console.log("Authenticated with user ID:", currentUserId);
-                setupFirestoreListeners();
-            } else {
-                console.log("No user signed in. Attempting to sign in.");
-                try {
-                    if (initialAuthToken) {
-                        await signInWithCustomToken(auth, initialAuthToken);
-                        console.log("Signed in with custom token.");
-                    } else {
-                        await signInAnonymously(auth);
-                        console.log("Signed in anonymously.");
-                    }
-                } catch (error) {
-                    console.error("Firebase Auth Error:", error);
-                }
+        // --- Local Storage Functions ---
+        function getRequestsFromLocalStorage() {
+            try {
+                const requests = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+                return requests;
+            } catch (e) {
+                console.error("Failed to parse requests from local storage", e);
+                return [];
             }
-        });
-
-        // --- Firebase Firestore Functions ---
-        const PUBLIC_COLLECTION_PATH = `/artifacts/${appId}/public/data/requests`;
-
-        function setupFirestoreListeners() {
-            if (!currentUserId) {
-                console.error("Cannot set up listeners: user not authenticated.");
-                return;
-            }
-
-            const q = query(collection(db, PUBLIC_COLLECTION_PATH));
-
-            // Listen for real-time updates to the requests collection
-            onSnapshot(q, (querySnapshot) => {
-                const requests = [];
-                querySnapshot.forEach((doc) => {
-                    requests.push({ id: doc.id, ...doc.data() });
-                });
-                renderRequests(requests);
-            }, (error) => {
-                console.error("Error fetching documents:", error);
-                loadingMessage.textContent = "Error loading requests. Please try again later.";
-            });
         }
 
-        async function saveRequestToFirestore(data) {
+        function saveRequestToLocalStorage(request) {
+            const requests = getRequestsFromLocalStorage();
+            requests.push(request);
             try {
-                // Add the user ID and timestamp to the data
-                const requestData = {
-                    ...data,
-                    userId: currentUserId,
-                    timestamp: serverTimestamp()
-                };
-                const docRef = await addDoc(collection(db, PUBLIC_COLLECTION_PATH), requestData);
-                console.log("Document written with ID:", docRef.id);
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(requests));
                 return true;
-            } catch (error) {
-                console.error("Error adding document:", error);
+            } catch (e) {
+                console.error("Failed to save request to local storage", e);
                 return false;
             }
         }
@@ -448,16 +385,14 @@
             
             // Sort requests by timestamp in descending order
             requests.sort((a, b) => {
-                const timestampA = a.timestamp ? a.timestamp.toDate() : new Date(0);
-                const timestampB = b.timestamp ? b.timestamp.toDate() : new Date(0);
-                return timestampB - timestampA;
+                return new Date(b.timestamp) - new Date(a.timestamp);
             });
 
             requests.forEach(req => {
                 const requestCard = document.createElement('div');
                 requestCard.className = 'bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200';
                 
-                const formattedDate = req.timestamp ? new Date(req.timestamp.toDate()).toLocaleString() : 'N/A';
+                const formattedDate = new Date(req.timestamp).toLocaleString();
                 
                 const subCategoryList = req.subCategory ? JSON.parse(req.subCategory).map(item => `<li>${item.name} (${item.subcategory})</li>`).join('') : '';
 
@@ -470,15 +405,14 @@
                         <p><span class="font-semibold">Urgency:</span> ${req.urgency}</p>
                         ${req.itemDescription ? `<p><span class="font-semibold">Description:</span> ${req.itemDescription}</p>` : ''}
                         ${subCategoryList ? `<p class="mt-4 font-semibold">Selected Items:</p><ul class="list-disc list-inside space-y-1">${subCategoryList}</ul>` : ''}
-                        <p class="text-xs text-gray-400 mt-2">Submitted by: ${req.userId}</p>
                     </div>
                 `;
                 requestsContainer.appendChild(requestCard);
             });
         }
-
+        
         // --- Event Listeners and Form Logic ---
-        submitBtn.addEventListener('click', async () => {
+        submitBtn.addEventListener('click', () => {
             if (!requestForm.checkValidity()) {
                 requestForm.reportValidity();
                 return;
@@ -519,6 +453,7 @@
                 }
             });
             data.subCategory = JSON.stringify(selectedItems);
+            data.timestamp = new Date().toISOString();
 
             // Populate and show the confirmation modal
             statusModal.classList.remove('open');
@@ -533,13 +468,14 @@
             confirmModal.classList.add('open');
 
             // Handle confirm and cancel button clicks
-            sendRequestBtn.onclick = async () => {
+            sendRequestBtn.onclick = () => {
                 confirmModal.classList.remove('open');
-                const success = await saveRequestToFirestore(data);
+                const success = saveRequestToLocalStorage(data);
                 if (success) {
                     modalTitle.textContent = "Request Submitted Successfully!";
                     modalMessage.textContent = "Your request has been saved to the log.";
                     requestForm.reset();
+                    renderRequests(getRequestsFromLocalStorage()); // Rerender the log
                 } else {
                     modalTitle.textContent = "Submission Failed";
                     modalMessage.textContent = "There was an error submitting your request. Please check the console for details.";
@@ -606,7 +542,7 @@
             });
         });
         
-        // Handle initial form state
+        // Handle initial form state and load existing requests
         document.addEventListener('DOMContentLoaded', () => {
             const dateInput = document.getElementById('requestDate');
             const today = new Date();
@@ -614,6 +550,9 @@
             const month = String(today.getMonth() + 1).padStart(2, '0');
             const day = String(today.getDate()).padStart(2, '0');
             dateInput.value = `${year}-${month}-${day}`;
+
+            // Load existing requests from local storage on page load
+            renderRequests(getRequestsFromLocalStorage());
         });
     </script>
 </body>
