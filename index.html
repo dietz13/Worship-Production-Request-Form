@@ -523,19 +523,19 @@
             });
         });
 
-        // Logic for custom text inputs
+        // Corrected logic for custom text inputs
         document.querySelectorAll('.custom-option-checkbox').forEach(checkbox => {
             checkbox.addEventListener('change', (event) => {
                 const parentFlex = event.target.closest('.flex');
                 const customInput = parentFlex.querySelector('input[type="text"]');
                 const customLinkInput = parentFlex.querySelector('input[type="url"]');
                 if (event.target.checked) {
-                    if (customInput) customInput.disabled = false;
-                    if (customLinkInput) customLinkInput.disabled = false;
-                    customInput.focus();
+                    if (customInput) customInput.removeAttribute('disabled');
+                    if (customLinkInput) customLinkInput.removeAttribute('disabled');
+                    if (customInput) customInput.focus();
                 } else {
-                    if (customInput) customInput.disabled = true;
-                    if (customLinkInput) customLinkInput.disabled = true;
+                    if (customInput) customInput.setAttribute('disabled', 'disabled');
+                    if (customLinkInput) customLinkInput.setAttribute('disabled', 'disabled');
                     if (customInput) customInput.value = '';
                     if (customLinkInput) customLinkInput.value = '';
                 }
