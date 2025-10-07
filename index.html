@@ -415,8 +415,18 @@
         const cancelConfirmBtn = document.getElementById('cancelConfirmBtn');
         const requestForm = document.getElementById('requestForm');
         const submitBtn = document.getElementById('submitBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn'); // Added missing reference
 
+        // --- Configuration ---
         const LOCAL_STORAGE_KEY = 'creativeArtsRequests';
+        
+        // TO ACTIVATE LIVE SUBMISSION VIA FORMSPREE:
+        // 1. Get your endpoint from Formspree and replace the placeholder below.
+        // 2. In the sendRequestBtn.onclick function, uncomment the Formspree block and comment out the Local Storage block.
+        const FORMSPREE_ENDPOINT = "https://formspree.io/f/xnnbeqvb";
+        
+        // Variable to hold the data object between confirmation steps
+        let currentSubmissionData = {};
 
         // --- Local Storage Functions ---
         function getRequestsFromLocalStorage() {
@@ -490,7 +500,8 @@
             });
         }
         
-        // --- Event Listeners and Form Logic ---
+        // --- Event Handlers ---
+
         submitBtn.addEventListener('click', () => {
             if (!requestForm.checkValidity()) {
                 requestForm.reportValidity();
@@ -498,9 +509,6 @@
             }
 
             // Start pre-submission process
-            modalTitle.textContent = "Processing Request...";
-            modalMessage.textContent = "Please wait while we prepare your submission.";
-            statusModal.classList.add('open');
             submitBtn.disabled = true;
 
             const formData = new FormData(requestForm);
@@ -511,31 +519,24 @@
             
             // Collect all checked item checkboxes (only in Supplies and Upgrades)
             document.querySelectorAll('#suppliesSubcategory .item-checkbox:checked, #upgradesSubcategory .item-checkbox:checked').forEach(checkbox => {
-                // Find the closest parent group for associated inputs
                 const parentGroup = checkbox.closest('[data-item-group]');
                 if (!parentGroup) return;
 
-                // Get the category type (e.g., Supplies, Upgrades)
                 const categoryType = checkbox.name.split('_')[0] || 'Misc';
-                
-                // Get subcategory (e.g., 'audio', 'video') and base item value
                 const nameParts = checkbox.name.split('_');
                 const subcategory = nameParts[1]; 
-                const baseItemValue = checkbox.value; // e.g., 'Cables' or 'Other'
+                const baseItemValue = checkbox.value; 
 
-                // Find the associated custom text and URL inputs within the group
                 const customInput = parentGroup.querySelector('.item-input-text');
                 const customLinkInput = parentGroup.querySelector('.item-input-url');
 
                 let itemValue = baseItemValue;
                 let itemLink = '';
 
-                // If custom text input is available and has a value, use it for the item name
                 if (customInput && customInput.value.trim() !== '') {
                     itemValue = customInput.value.trim();
                 }
                 
-                // If custom link input is available and has a value, use it for the link
                 if (customLinkInput && customLinkInput.value.trim() !== '') {
                     itemLink = customLinkInput.value.trim();
                 }
@@ -548,7 +549,7 @@
                 });
             });
 
-            // Collect selected items from the old repair structure (simple checkboxes)
+            // Collect selected items from the old repair structure
             document.querySelectorAll('#repairsSubcategory input[type="checkbox"]:checked').forEach(checkbox => {
                 const isOther = checkbox.name.includes('_other_checkbox');
                 let itemValue = checkbox.value;
@@ -559,14 +560,13 @@
                     itemValue = customInput ? customInput.value.trim() || 'Other' : 'Other';
                     subcategory = subcategory + " (Custom Repair)";
                 } else if (checkbox.name.includes('repairs_audio[]') || checkbox.name.includes('repairs_video[]') || checkbox.name.includes('repairs_lighting[]')) {
-                    // Standard repair item
                     const categoryMatch = checkbox.name.match(/repairs_(\w+)\[\]/);
                     if (categoryMatch) {
                         subcategory = categoryMatch[1];
                     }
                 }
 
-                if (itemValue && itemValue !== 'on') { // Avoid adding the 'Other' checkbox itself if custom text is empty
+                if (itemValue && itemValue !== 'on') { 
                     selectedItems.push({
                         category: 'Repairs',
                         subcategory: subcategory,
@@ -578,9 +578,11 @@
 
             data.subCategory = JSON.stringify(selectedItems);
             data.timestamp = new Date().toISOString();
+            
+            // Store data globally for the final submission step
+            currentSubmissionData = data;
 
             // Populate and show the confirmation modal
-            statusModal.classList.remove('open');
             summaryContent.innerHTML = `
                 <p><span class="font-semibold">Requester:</span> ${data.requesterName}</p>
                 <p><span class="font-semibold">Request Type:</span> ${data.requestType}</p>
@@ -593,31 +595,72 @@
                 }).join('')}</ul>` : ''}
             `;
             confirmModal.classList.add('open');
+        });
 
-            // Handle confirm and cancel button clicks
-            sendRequestBtn.onclick = () => {
-                confirmModal.classList.remove('open');
-                const success = saveRequestToLocalStorage(data);
-                if (success) {
-                    modalTitle.textContent = "Request Submitted Successfully!";
-                    modalMessage.textContent = "Your request has been saved to the log.";
-                    requestForm.reset();
-                    renderRequests(getRequestsFromLocalStorage()); // Rerender the log
-                } else {
-                    modalTitle.textContent = "Submission Failed";
-                    modalMessage.textContent = "There was an error submitting your request. Please check the console for details.";
+        sendRequestBtn.addEventListener('click', async () => {
+            confirmModal.classList.remove('open');
+            submitBtn.disabled = false;
+            
+            // --- ACTIVE SUBMISSION METHOD: LOCAL STORAGE ---
+            const success = saveRequestToLocalStorage(currentSubmissionData);
+
+            if (success) {
+                modalTitle.textContent = "Request Submitted Successfully!";
+                modalMessage.textContent = "Your request has been saved to the **local log** (browser storage).";
+                requestForm.reset();
+                renderRequests(getRequestsFromLocalStorage()); // Rerender the log
+                statusModal.classList.add('open');
+                return;
+            }
+            // -----------------------------------------------
+
+
+            // --- FORMSPREE SUBMISSION (COMMENTED OUT) ---
+            /*
+            if (FORMSPREE_ENDPOINT !== "YOUR_FORMSPREE_ENDPOINT_HERE" && FORMSPREE_ENDPOINT.startsWith('http')) {
+                try {
+                    const response = await fetch(FORMSPREE_ENDPOINT, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(currentSubmissionData),
+                    });
+
+                    if (response.ok) {
+                        modalTitle.textContent = "Request Submitted Successfully (Formspree)!";
+                        modalMessage.textContent = "Your request has been emailed.";
+                        requestForm.reset();
+                    } else {
+                        modalTitle.textContent = "Submission Failed (Formspree Error)";
+                        modalMessage.textContent = "The external form submission failed. Check your console and endpoint.";
+                    }
+                } catch (error) {
+                    console.error("Fetch error:", error);
+                    modalTitle.textContent = "Submission Failed (Network Error)";
+                    modalMessage.textContent = "Could not reach the server. Check your network connection.";
                 }
                 statusModal.classList.add('open');
-                submitBtn.disabled = false;
-            };
+                return;
+            }
+            */
+            // ------------------------------------------
 
-            cancelConfirmBtn.onclick = () => {
-                confirmModal.classList.remove('open');
-                submitBtn.disabled = false;
-            };
+            // Fallback if local storage failed
+            if (!success) {
+                modalTitle.textContent = "Submission Failed";
+                modalMessage.textContent = "There was an error saving your request locally.";
+                statusModal.classList.add('open');
+            }
+        });
+
+        // Hide confirmation modal
+        cancelConfirmBtn.addEventListener('click', () => {
+            confirmModal.classList.remove('open');
+            submitBtn.disabled = false;
         });
         
-        // Hide modals
+        // Hide status modal
         closeModalBtn.addEventListener('click', () => {
             statusModal.classList.remove('open');
         });
@@ -651,12 +694,10 @@
         });
 
         // **GENERALIZED LOGIC FOR CUSTOM TEXT INPUTS**
-        // Applies to all checkboxes in Supplies and Upgrades
         document.addEventListener('DOMContentLoaded', () => {
 
             document.querySelectorAll('#suppliesSubcategory .item-checkbox, #upgradesSubcategory .item-checkbox').forEach(checkbox => {
                 checkbox.addEventListener('change', (event) => {
-                    // Find the closest parent group for associated inputs
                     const parentGroup = event.target.closest('[data-item-group]');
                     if (!parentGroup) return;
 
@@ -670,7 +711,6 @@
                     } else {
                         if (customInput) customInput.setAttribute('disabled', 'disabled');
                         if (customLinkInput) customLinkInput.setAttribute('disabled', 'disabled');
-                        // Also clear the content when unchecked
                         if (customInput) customInput.value = '';
                         if (customLinkInput) customLinkInput.value = '';
                     }
