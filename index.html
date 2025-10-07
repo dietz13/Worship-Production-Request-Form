@@ -23,6 +23,12 @@
             opacity: 1;
             visibility: visible;
         }
+        /* Style adjustments for better visibility of inline inputs */
+        .item-input-text, .item-input-url {
+            max-width: 45%; /* Limits width on larger screens */
+            min-width: 150px; /* Ensures minimum size on smaller screens */
+            transition: all 0.2s ease;
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col items-center p-4">
@@ -79,65 +85,90 @@
                 <div id="suppliesSubcategory" class="hidden">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Supplies Category</label>
                     <div class="space-y-2">
+                        <!-- AUDIO SUPPLIES -->
                         <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
                             <summary class="font-medium text-gray-700 flex justify-between items-center">Audio Supplies</summary>
                             <div class="mt-2 space-y-2">
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="supplies_audio[]" value="Cables" data-link="https://www.amazon.com/dp/B002K88E7K" class="rounded text-emerald-600">
-                                    <span>Cables</span>
-                                </label>
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="supplies_audio[]" value="Batteries" data-link="https://www.amazon.com/dp/B003L4972E" class="rounded text-emerald-600">
-                                    <span>Batteries</span>
-                                </label>
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="supplies_audio[]" value="Gaff Tape" data-link="https://www.amazon.com/dp/B003I005V8" class="rounded text-emerald-600">
-                                    <span>Gaff Tape</span>
-                                </label>
-                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
-                                    <label class="flex items-center space-x-2 text-gray-700">
-                                        <input type="checkbox" name="supplies_audio_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                <!-- Cables -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="supplies_audio_Cables_check" value="Cables" class="rounded text-emerald-600 item-checkbox" data-link="https://www.amazon.com/dp/B002K88E7K">
+                                        <span>Cables</span>
+                                    </label>
+                                    <input type="text" name="supplies_audio_Cables_text" placeholder="Specify item (e.g., 10ft XLR)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
+                                    <input type="url" name="supplies_audio_Cables_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
+                                </div>
+                                <!-- Batteries -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="supplies_audio_Batteries_check" value="Batteries" class="rounded text-emerald-600 item-checkbox" data-link="https://www.amazon.com/dp/B003L4972E">
+                                        <span>Batteries</span>
+                                    </label>
+                                    <input type="text" name="supplies_audio_Batteries_text" placeholder="Specify item (e.g., AA for mics)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
+                                    <input type="url" name="supplies_audio_Batteries_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
+                                </div>
+                                <!-- Gaff Tape -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="supplies_audio_Gaff_Tape_check" value="Gaff Tape" class="rounded text-emerald-600 item-checkbox" data-link="https://www.amazon.com/dp/B003I005V8">
+                                        <span>Gaff Tape</span>
+                                    </label>
+                                    <input type="text" name="supplies_audio_Gaff_Tape_text" placeholder="Specify item (e.g., Black, 2-inch)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
+                                    <input type="url" name="supplies_audio_Gaff_Tape_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
+                                </div>
+                                <!-- Other Audio -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="supplies_audio_Other_check" value="Other" class="rounded text-emerald-600 item-checkbox other-checkbox">
                                         <span>Other:</span>
                                     </label>
-                                    <input type="text" name="supplies_audio_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                                    <input type="url" name="supplies_audio_other_link" placeholder="Paste link here (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                    <input type="text" name="supplies_audio_Other_text" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-text">
+                                    <input type="url" name="supplies_audio_Other_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-url">
                                 </div>
                             </div>
                         </details>
-                        <!-- Other Supplies Categories -->
+                        <!-- VIDEO SUPPLIES -->
                         <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
                             <summary class="font-medium text-gray-700 flex justify-between items-center">Video Supplies</summary>
                             <div class="mt-2 space-y-2">
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="supplies_video[]" value="HDMI Cables" data-link="https://www.amazon.com/dp/B08V819G8W" class="rounded text-emerald-600">
-                                    <span>HDMI Cables</span>
-                                </label>
-                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
-                                    <label class="flex items-center space-x-2 text-gray-700">
-                                        <input type="checkbox" name="supplies_video_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                <!-- Cables (formerly HDMI Cables) -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="supplies_video_Cables_check" value="Cables" class="rounded text-emerald-600 item-checkbox" data-link="https://www.amazon.com/dp/B08V819G8W">
+                                        <span>Cables</span>
+                                    </label>
+                                    <input type="text" name="supplies_video_Cables_text" placeholder="Specify item (e.g., HDMI, SDI, USB)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
+                                    <input type="url" name="supplies_video_Cables_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
+                                </div>
+                                <!-- Other Video -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="supplies_video_Other_check" value="Other" class="rounded text-emerald-600 item-checkbox other-checkbox">
                                         <span>Other:</span>
                                     </label>
-                                    <input type="text" name="supplies_video_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                                    <input type="url" name="supplies_video_other_link" placeholder="Paste link here (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                    <input type="text" name="supplies_video_Other_text" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-text">
+                                    <input type="url" name="supplies_video_Other_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-url">
                                 </div>
                             </div>
                         </details>
+                        <!-- LIGHTING SUPPLIES -->
                         <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
                             <summary class="font-medium text-gray-700 flex justify-between items-center">Lighting Supplies</summary>
                             <div class="mt-2 space-y-2">
-                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
-                                    <label class="flex items-center space-x-2 text-gray-700">
-                                        <input type="checkbox" name="supplies_lighting_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                <!-- Other Lighting -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="supplies_lighting_Other_check" value="Other" class="rounded text-emerald-600 item-checkbox other-checkbox">
                                         <span>Other:</span>
                                     </label>
-                                    <input type="text" name="supplies_lighting_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                                    <input type="url" name="supplies_lighting_other_link" placeholder="Paste link here (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                    <input type="text" name="supplies_lighting_Other_text" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-text">
+                                    <input type="url" name="supplies_lighting_Other_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-url">
                                 </div>
                             </div>
                         </details>
                     </div>
                 </div>
-                <!-- Repairs Sub-category -->
+                <!-- Repairs Sub-category (No custom text/link fields for Repair options) -->
                 <div id="repairsSubcategory" class="hidden">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Repairs Category</label>
                     <div class="space-y-2">
@@ -158,7 +189,7 @@
                                 </label>
                                 <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
                                     <label class="flex items-center space-x-2 text-gray-700">
-                                        <input type="checkbox" name="repairs_audio_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                        <input type="checkbox" name="repairs_audio_other_checkbox" class="rounded text-emerald-600">
                                         <span>Other:</span>
                                     </label>
                                     <input type="text" name="repairs_audio_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
@@ -179,7 +210,7 @@
                                 </label>
                                 <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
                                     <label class="flex items-center space-x-2 text-gray-700">
-                                        <input type="checkbox" name="repairs_video_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                        <input type="checkbox" name="repairs_video_other_checkbox" class="rounded text-emerald-600">
                                         <span>Other:</span>
                                     </label>
                                     <input type="text" name="repairs_video_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
@@ -199,7 +230,7 @@
                                 </label>
                                 <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
                                     <label class="flex items-center space-x-2 text-gray-700">
-                                        <input type="checkbox" name="repairs_lighting_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                        <input type="checkbox" name="repairs_lighting_other_checkbox" class="rounded text-emerald-600">
                                         <span>Other:</span>
                                     </label>
                                     <input type="text" name="repairs_lighting_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
@@ -212,68 +243,111 @@
                 <div id="upgradesSubcategory" class="hidden">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Upgrades Category</label>
                     <div class="space-y-2">
+                        <!-- AUDIO UPGRADES -->
                         <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
                             <summary class="font-medium text-gray-700 flex justify-between items-center">Audio System</summary>
                             <div class="mt-2 space-y-2">
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="upgrades_audio[]" value="Wireless Mic System" class="rounded text-emerald-600">
-                                    <span>Wireless Mic System</span>
-                                </label>
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="upgrades_audio[]" value="Speakers" class="rounded text-emerald-600">
-                                    <span>Speakers</span>
-                                </label>
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="upgrades_audio[]" value="Mixing Console" class="rounded text-emerald-600">
-                                    <span>Mixing Console</span>
-                                </label>
-                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
-                                    <label class="flex items-center space-x-2 text-gray-700">
-                                        <input type="checkbox" name="upgrades_audio_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                <!-- Wireless Mic System -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="upgrades_audio_Wireless_Mic_System_check" value="Wireless Mic System" class="rounded text-emerald-600 item-checkbox">
+                                        <span>Wireless Mic System</span>
+                                    </label>
+                                    <input type="text" name="upgrades_audio_Wireless_Mic_System_text" placeholder="Specify item (e.g., Shure ULX-D)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
+                                    <input type="url" name="upgrades_audio_Wireless_Mic_System_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
+                                </div>
+                                <!-- Speakers -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="upgrades_audio_Speakers_check" value="Speakers" class="rounded text-emerald-600 item-checkbox">
+                                        <span>Speakers</span>
+                                    </label>
+                                    <input type="text" name="upgrades_audio_Speakers_text" placeholder="Specify item (e.g., FOH speakers)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
+                                    <input type="url" name="upgrades_audio_Speakers_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
+                                </div>
+                                <!-- Mixing Console -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="upgrades_audio_Mixing_Console_check" value="Mixing Console" class="rounded text-emerald-600 item-checkbox">
+                                        <span>Mixing Console</span>
+                                    </label>
+                                    <input type="text" name="upgrades_audio_Mixing_Console_text" placeholder="Specify item (e.g., Midas M32)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
+                                    <input type="url" name="upgrades_audio_Mixing_Console_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
+                                </div>
+                                <!-- Other Audio -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="upgrades_audio_Other_check" value="Other" class="rounded text-emerald-600 item-checkbox other-checkbox">
                                         <span>Other:</span>
                                     </label>
-                                    <input type="text" name="upgrades_audio_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                    <input type="text" name="upgrades_audio_Other_text" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-text">
+                                    <input type="url" name="upgrades_audio_Other_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-url">
                                 </div>
                             </div>
                         </details>
-                        <!-- Other Upgrades Categories -->
+                        <!-- VIDEO UPGRADES -->
                         <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
                             <summary class="font-medium text-gray-700 flex justify-between items-center">Video System</summary>
                             <div class="mt-2 space-y-2">
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="upgrades_video[]" value="Projector" class="rounded text-emerald-600">
-                                    <span>Projector</span>
-                                </label>
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="upgrades_video[]" value="Live Stream Rig" class="rounded text-emerald-600">
-                                    <span>Live Stream Rig</span>
-                                </label>
-                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
-                                    <label class="flex items-center space-x-2 text-gray-700">
-                                        <input type="checkbox" name="upgrades_video_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                <!-- Projector -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="upgrades_video_Projector_check" value="Projector" class="rounded text-emerald-600 item-checkbox">
+                                        <span>Projector</span>
+                                    </label>
+                                    <input type="text" name="upgrades_video_Projector_text" placeholder="Specify item (e.g., 4K Laser Projector)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
+                                    <input type="url" name="upgrades_video_Projector_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
+                                </div>
+                                <!-- Live Stream Rig -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="upgrades_video_Live_Stream_Rig_check" value="Live Stream Rig" class="rounded text-emerald-600 item-checkbox">
+                                        <span>Live Stream Rig</span>
+                                    </label>
+                                    <input type="text" name="upgrades_video_Live_Stream_Rig_text" placeholder="Specify item (e.g., Encoder, Switcher)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
+                                    <input type="url" name="upgrades_video_Live_Stream_Rig_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
+                                </div>
+                                <!-- Other Video -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="upgrades_video_Other_check" value="Other" class="rounded text-emerald-600 item-checkbox other-checkbox">
                                         <span>Other:</span>
                                     </label>
-                                    <input type="text" name="upgrades_video_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                    <input type="text" name="upgrades_video_Other_text" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-text">
+                                    <input type="url" name="upgrades_video_Other_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-url">
                                 </div>
                             </div>
                         </details>
+                        <!-- LIGHTING UPGRADES -->
                         <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
                             <summary class="font-medium text-gray-700 flex justify-between items-center">Lighting System</summary>
                             <div class="mt-2 space-y-2">
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="upgrades_lighting[]" value="Stage Lights" class="rounded text-emerald-600">
-                                    <span>Stage Lights</span>
-                                </label>
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="upgrades_lighting[]" value="DMX Controller" class="rounded text-emerald-600">
-                                    <span>DMX Controller</span>
-                                </label>
-                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
-                                    <label class="flex items-center space-x-2 text-gray-700">
-                                        <input type="checkbox" name="upgrades_lighting_other_checkbox" class="rounded text-emerald-600 custom-option-checkbox">
+                                <!-- Stage Lights -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="upgrades_lighting_Stage_Lights_check" value="Stage Lights" class="rounded text-emerald-600 item-checkbox">
+                                        <span>Stage Lights</span>
+                                    </label>
+                                    <input type="text" name="upgrades_lighting_Stage_Lights_text" placeholder="Specify item (e.g., LED Pars, Moving Heads)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
+                                    <input type="url" name="upgrades_lighting_Stage_Lights_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
+                                </div>
+                                <!-- DMX Controller -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="upgrades_lighting_DMX_Controller_check" value="DMX Controller" class="rounded text-emerald-600 item-checkbox">
+                                        <span>DMX Controller</span>
+                                    </label>
+                                    <input type="text" name="upgrades_lighting_DMX_Controller_text" placeholder="Specify item (e.g., Console model)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
+                                    <input type="url" name="upgrades_lighting_DMX_Controller_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
+                                </div>
+                                <!-- Other Lighting -->
+                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
+                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <input type="checkbox" name="upgrades_lighting_Other_check" value="Other" class="rounded text-emerald-600 item-checkbox other-checkbox">
                                         <span>Other:</span>
                                     </label>
-                                    <input type="text" name="upgrades_lighting_other" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                    <input type="text" name="upgrades_lighting_Other_text" placeholder="Specify item" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-text">
+                                    <input type="url" name="upgrades_lighting_Other_link" placeholder="Paste link (Optional)" disabled class="flex-grow ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-url">
                                 </div>
                             </div>
                         </details>
@@ -394,7 +468,18 @@
                 
                 const formattedDate = new Date(req.timestamp).toLocaleString();
                 
-                const subCategoryList = req.subCategory ? JSON.parse(req.subCategory).map(item => `<li>${item.name} (${item.subcategory})</li>`).join('') : '';
+                // Parse subCategory from JSON string
+                let subCategoryList = '';
+                try {
+                    const parsedCategories = JSON.parse(req.subCategory);
+                    subCategoryList = parsedCategories.map(item => {
+                        const linkHtml = item.link ? `<a href="${item.link}" target="_blank" class="text-emerald-500 hover:underline">(Link)</a>` : '';
+                        return `<li>${item.name} (${item.subcategory}) ${linkHtml}</li>`;
+                    }).join('');
+                } catch(e) {
+                    console.error("Error parsing subCategory JSON:", e);
+                }
+
 
                 requestCard.innerHTML = `
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
@@ -427,31 +512,68 @@
             const formData = new FormData(requestForm);
             const data = Object.fromEntries(formData.entries());
 
-            // Collect all selected checkbox values, including custom inputs
+            // Collect selected items from the new structure
             const selectedItems = [];
-            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                if (checkbox.checked) {
-                    const nameParts = checkbox.name.split('_');
-                    const categoryType = nameParts[0] || 'Misc';
-                    let subcategory = nameParts[1] || 'General';
-                    let itemValue = checkbox.value;
-                    let itemLink = checkbox.dataset.link || '';
+            
+            // Collect all checked item checkboxes (only in Supplies and Upgrades)
+            document.querySelectorAll('#suppliesSubcategory .item-checkbox:checked, #upgradesSubcategory .item-checkbox:checked').forEach(checkbox => {
+                // Find the closest parent group for associated inputs
+                const parentGroup = checkbox.closest('[data-item-group]');
+                if (!parentGroup) return;
 
-                    if (checkbox.classList.contains('custom-option-checkbox')) {
-                        const customInput = checkbox.closest('.flex').querySelector('input[type="text"]');
-                        const customLinkInput = checkbox.closest('.flex').querySelector('input[type="url"]');
-                        itemValue = customInput ? customInput.value.trim() : 'N/A';
-                        itemLink = customLinkInput ? customLinkInput.value.trim() : '';
-                        subcategory = subcategory + " (Custom)";
-                    }
-                    selectedItems.push({
-                        category: categoryType,
-                        subcategory: subcategory,
-                        name: itemValue,
-                        link: itemLink
-                    });
+                // Get the category type (e.g., Supplies, Upgrades)
+                const categoryType = checkbox.name.split('_')[0] || 'Misc';
+                
+                // Get subcategory (e.g., 'audio', 'video') and base item value
+                const nameParts = checkbox.name.split('_');
+                const subcategory = nameParts[1]; 
+                const baseItemValue = checkbox.value; // e.g., 'Cables' or 'Other'
+
+                // Find the associated custom text and URL inputs within the group
+                const customInput = parentGroup.querySelector('.item-input-text');
+                const customLinkInput = parentGroup.querySelector('.item-input-url');
+
+                let itemValue = baseItemValue;
+                let itemLink = '';
+
+                // If custom text input is available and has a value, use it for the item name
+                if (customInput && customInput.value.trim() !== '') {
+                    itemValue = customInput.value.trim();
                 }
+                
+                // If custom link input is available and has a value, use it for the link
+                if (customLinkInput && customLinkInput.value.trim() !== '') {
+                    itemLink = customLinkInput.value.trim();
+                }
+
+                selectedItems.push({
+                    category: categoryType,
+                    subcategory: subcategory,
+                    name: itemValue,
+                    link: itemLink
+                });
             });
+
+            // Collect selected items from the old repair structure (simple checkboxes)
+            document.querySelectorAll('#repairsSubcategory input[type="checkbox"]:checked').forEach(checkbox => {
+                const isOther = checkbox.name.includes('_other_checkbox');
+                let itemValue = checkbox.value;
+                let subcategory = checkbox.name.split('_')[1];
+
+                if (isOther) {
+                    const customInput = checkbox.closest('.flex').querySelector('input[type="text"]');
+                    itemValue = customInput ? customInput.value.trim() || 'Other' : 'Other';
+                    subcategory = subcategory + " (Custom Repair)";
+                }
+
+                selectedItems.push({
+                    category: 'Repairs',
+                    subcategory: subcategory,
+                    name: itemValue,
+                    link: ''
+                });
+            });
+
             data.subCategory = JSON.stringify(selectedItems);
             data.timestamp = new Date().toISOString();
 
@@ -463,7 +585,10 @@
                 <p><span class="font-semibold">Urgency:</span> ${data.urgency}</p>
                 ${data.itemDescription ? `<p><span class="font-semibold">Description:</span> ${data.itemDescription}</p>` : ''}
                 ${selectedItems.length > 0 ? `<p class="mt-4 font-semibold">Selected Items:</p>
-                <ul class="list-disc list-inside space-y-1">${selectedItems.map(item => `<li>${item.name} (${item.subcategory})</li>`).join('')}</ul>` : ''}
+                <ul class="list-disc list-inside space-y-1">${selectedItems.map(item => {
+                    const linkDisplay = item.link ? ` <a href="${item.link}" target="_blank" class="text-emerald-500 hover:underline">(Link)</a>` : '';
+                    return `<li>${item.name} (${item.subcategory})${linkDisplay}</li>`;
+                }).join('')}</ul>` : ''}
             `;
             confirmModal.classList.add('open');
 
@@ -523,27 +648,51 @@
             });
         });
 
-        // Corrected logic for custom text inputs
-        document.querySelectorAll('.custom-option-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('change', (event) => {
-                const parentFlex = event.target.closest('.flex');
-                const customInput = parentFlex.querySelector('input[type="text"]');
-                const customLinkInput = parentFlex.querySelector('input[type="url"]');
-                if (event.target.checked) {
-                    if (customInput) customInput.removeAttribute('disabled');
-                    if (customLinkInput) customLinkInput.removeAttribute('disabled');
-                    if (customInput) customInput.focus();
-                } else {
-                    if (customInput) customInput.setAttribute('disabled', 'disabled');
-                    if (customLinkInput) customLinkInput.setAttribute('disabled', 'disabled');
-                    if (customInput) customInput.value = '';
-                    if (customLinkInput) customLinkInput.value = '';
-                }
-            });
-        });
-        
-        // Handle initial form state and load existing requests
+        // **GENERALIZED LOGIC FOR CUSTOM TEXT INPUTS**
+        // Applies to all checkboxes in Supplies and Upgrades
         document.addEventListener('DOMContentLoaded', () => {
+
+            document.querySelectorAll('#suppliesSubcategory .item-checkbox, #upgradesSubcategory .item-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', (event) => {
+                    // Find the closest parent group for associated inputs
+                    const parentGroup = event.target.closest('[data-item-group]');
+                    if (!parentGroup) return;
+
+                    const customInput = parentGroup.querySelector('.item-input-text');
+                    const customLinkInput = parentGroup.querySelector('.item-input-url');
+                    
+                    if (event.target.checked) {
+                        if (customInput) customInput.removeAttribute('disabled');
+                        if (customLinkInput) customLinkInput.removeAttribute('disabled');
+                        if (customInput) customInput.focus();
+                    } else {
+                        if (customInput) customInput.setAttribute('disabled', 'disabled');
+                        if (customLinkInput) customLinkInput.setAttribute('disabled', 'disabled');
+                        // Also clear the content when unchecked
+                        if (customInput) customInput.value = '';
+                        if (customLinkInput) customLinkInput.value = '';
+                    }
+                });
+            });
+
+            // Handle the Repair 'Other' fields which use the old structure (no link)
+             document.querySelectorAll('#repairsSubcategory input[name$="_other_checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', (event) => {
+                    const parentFlex = event.target.closest('.flex');
+                    const customInput = parentFlex.querySelector('input[type="text"]');
+                    
+                    if (event.target.checked) {
+                        if (customInput) customInput.removeAttribute('disabled');
+                        if (customInput) customInput.focus();
+                    } else {
+                        if (customInput) customInput.setAttribute('disabled', 'disabled');
+                        if (customInput) customInput.value = '';
+                    }
+                });
+            });
+
+
+            // Set initial date on load
             const dateInput = document.getElementById('requestDate');
             const today = new Date();
             const year = today.getFullYear();
