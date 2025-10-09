@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creative Arts Team Request Form</title>
+    <title>Worship & Production Team Request Form</title>
     <!-- Use the Inter font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <!-- Include Tailwind CSS via CDN -->
@@ -11,8 +11,9 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
+            background-color: #f3ff6;
         }
+        /* Styling for the confirmation modal overlay */
         .modal-overlay {
             opacity: 0;
             visibility: hidden;
@@ -32,10 +33,10 @@
         <!-- Branding Header -->
         <div class="text-center">
             <div class="flex flex-col items-center justify-center mb-4">
-                <img src="https://avatars.planningcenteronline.com/uploads/organization/41987-1346207477/avatar.4.png" alt="Providence City Church Logo" class="w-48 sm:w-64 mb-4 shadow-md rounded-xl">
-                <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">Creative Arts Team</h1>
+                <img src="https://avatars.planningcenteronline.com/uploads/organization/41987-1346207477/avatar.4.png" alt="Creative Team Logo" class="w-48 sm:w-64 mb-4 shadow-md rounded-xl">
+                <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">Worship & Production Team</h1>
             </div>
-            <h2 class="text-xl sm:text-2xl font-bold text-gray-700 mb-2">Request Form & Dashboard</h2>
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-700 mb-2">Request Form</h2>
             <p class="text-gray-600">Please fill out this form to request supplies, repairs, or upgrades.</p>
         </div>
 
@@ -75,7 +76,8 @@
 
             <!-- Sub-category menus (initially hidden) -->
             <div id="subcategories" class="hidden space-y-4">
-                <!-- Supplies Sub-category -->
+                
+                <!-- SUPPLIES SUB-CATEGORY -->
                 <div id="suppliesSubcategory" class="hidden">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Supplies Category</label>
                     <div class="space-y-2">
@@ -101,15 +103,6 @@
                                     <input type="text" name="supplies_audio_Batteries_text" placeholder="Specify item (e.g., AA for mics)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
                                     <input type="url" name="supplies_audio_Batteries_link" placeholder="Paste link (Optional)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
                                 </div>
-                                <!-- Gaff Tape -->
-                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
-                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
-                                        <input type="checkbox" name="supplies_audio_Gaff_Tape_check" value="Gaff Tape" class="rounded text-emerald-600 item-checkbox" data-link="https://www.amazon.com/dp/B003I005V8">
-                                        <span>Gaff Tape</span>
-                                    </label>
-                                    <input type="text" name="supplies_audio_Gaff_Tape_text" placeholder="Specify item (e.g., Black, 2-inch)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
-                                    <input type="url" name="supplies_audio_Gaff_Tape_link" placeholder="Paste link (Optional)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
-                                </div>
                                 <!-- Other Audio -->
                                 <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
                                     <label class="flex items-center space-x-2 w-full sm:w-auto">
@@ -121,6 +114,7 @@
                                 </div>
                             </div>
                         </details>
+                        
                         <!-- VIDEO SUPPLIES -->
                         <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
                             <summary class="font-medium text-gray-700 flex justify-between items-center">Video Supplies</summary>
@@ -145,7 +139,8 @@
                                 </div>
                             </div>
                         </details>
-                        <!-- LIGHTING SUPPLIES -->
+
+                        <!-- NEW LIGHTING SUPPLIES -->
                         <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
                             <summary class="font-medium text-gray-700 flex justify-between items-center">Lighting Supplies</summary>
                             <div class="mt-2 space-y-2">
@@ -155,584 +150,174 @@
                                         <input type="checkbox" name="supplies_lighting_Other_check" value="Other" class="rounded text-emerald-600 item-checkbox other-checkbox">
                                         <span>Other:</span>
                                     </label>
-                                    <input type="text" name="supplies_lighting_Other_text" placeholder="Specify item" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-text">
+                                    <input type="text" name="supplies_lighting_Other_text" placeholder="Specify item (e.g., Gel Sheets, DMX Cables, tape)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-text">
                                     <input type="url" name="supplies_lighting_Other_link" placeholder="Paste link (Optional)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-url">
                                 </div>
                             </div>
                         </details>
                     </div>
                 </div>
-                <!-- Repairs Sub-category (No custom text/link fields for Repair options) -->
-                <div id="repairsSubcategory" class="hidden">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Repairs Category</label>
-                    <div class="space-y-2">
-                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
-                            <summary class="font-medium text-gray-700 flex justify-between items-center">Audio Equipment</summary>
-                            <div class="mt-2 space-y-2">
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="repairs_audio[]" value="Microphone" class="rounded text-emerald-600">
-                                    <span>Microphone</span>
-                                </label>
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="repairs_audio[]" value="Speaker" class="rounded text-emerald-600">
-                                    <span>Speaker</span>
-                                </label>
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="repairs_audio[]" value="Mixer" class="rounded text-emerald-600">
-                                    <span>Mixer</span>
-                                </label>
-                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
-                                    <label class="flex items-center space-x-2 text-gray-700">
-                                        <input type="checkbox" name="repairs_audio_other_checkbox" class="rounded text-emerald-600">
-                                        <span>Other:</span>
-                                    </label>
-                                    <input type="text" name="repairs_audio_other" placeholder="Specify item" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                                </div>
-                            </div>
-                        </details>
-                        <!-- Other Repairs Categories -->
-                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
-                            <summary class="font-medium text-gray-700 flex justify-between items-center">Video Equipment</summary>
-                            <div class="mt-2 space-y-2">
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="repairs_video[]" value="Camera" class="rounded text-emerald-600">
-                                    <span>Camera</span>
-                                </label>
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="repairs_video[]" value="Projector" class="rounded text-emerald-600">
-                                    <span>Projector</span>
-                                </label>
-                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
-                                    <label class="flex items-center space-x-2 text-gray-700">
-                                        <input type="checkbox" name="repairs_video_other_checkbox" class="rounded text-emerald-600">
-                                        <span>Other:</span>
-                                    </label>
-                                    <input type="text" name="repairs_video_other" placeholder="Specify item" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                                </div>
-                            </div>
-                        </details>
-                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
-                            <summary class="font-medium text-gray-700 flex justify-between items-center">Lighting Fixtures</summary>
-                            <div class="mt-2 space-y-2">
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="repairs_lighting[]" value="Stage Lights" class="rounded text-emerald-600">
-                                    <span>Stage Lights</span>
-                                </label>
-                                <label class="flex items-center space-x-2 text-gray-700">
-                                    <input type="checkbox" name="repairs_lighting[]" value="DMX Controller" class="rounded text-emerald-600">
-                                    <span>DMX Controller</span>
-                                </label>
-                                <div class="flex items-center space-x-2 text-gray-700 flex-wrap">
-                                    <label class="flex items-center space-x-2 text-gray-700">
-                                        <input type="checkbox" name="repairs_lighting_other_checkbox" class="rounded text-emerald-600">
-                                        <span>Other:</span>
-                                    </label>
-                                    <input type="text" name="repairs_lighting_other" placeholder="Specify item" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                                </div>
-                            </div>
-                        </details>
+
+                <!-- REPAIRS SUB-CATEGORY (Now Structured) -->
+                <div id="repairsSubcategory" class="hidden space-y-4">
+                    <h3 class="text-lg font-semibold text-gray-700">Repair Details</h3>
+                    <!-- Audio Repairs -->
+                    <div>
+                        <label for="repairsAudioDetails" class="block text-sm font-medium text-gray-700 mb-1">Audio System Repair (Mics, Mixer, Speakers)</label>
+                        <textarea id="repairsAudioDetails" name="repairsAudioDetails" rows="3" placeholder="Describe the item, the issue, and location. (e.g., Shure wireless pack 3 needs battery door repair in FOH cabinet)" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200"></textarea>
+                    </div>
+                    <!-- Video Repairs -->
+                    <div>
+                        <label for="repairsVideoDetails" class="block text-sm font-medium text-gray-700 mb-1">Video System Repair (Cameras, Screens, Switchers)</label>
+                        <textarea id="repairsVideoDetails" name="repairsVideoDetails" rows="3" placeholder="Describe the item, the issue, and location. (e.g., Stage left confidence monitor is flickering, bad HDMI cable from floor box.)" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:focus:border-emerald-500 transition-colors duration-200"></textarea>
+                    </div>
+                    <!-- Lighting Repairs -->
+                    <div>
+                        <label for="repairsLightingDetails" class="block text-sm font-medium text-gray-700 mb-1">Lighting System Repair (Fixtures, Console, Wiring)</label>
+                        <textarea id="repairsLightingDetails" name="repairsLightingDetails" rows="3" placeholder="Describe the item, the issue, and location. (e.g., Moving head light 4 on FOH truss is stuck on red color.)" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200"></textarea>
                     </div>
                 </div>
-                <!-- Upgrades Sub-category -->
-                <div id="upgradesSubcategory" class="hidden">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Upgrades Category</label>
-                    <div class="space-y-2">
-                        <!-- AUDIO UPGRADES -->
-                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
-                            <summary class="font-medium text-gray-700 flex justify-between items-center">Audio System</summary>
-                            <div class="mt-2 space-y-2">
-                                <!-- Wireless Mic System -->
-                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
-                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
-                                        <input type="checkbox" name="upgrades_audio_Wireless_Mic_System_check" value="Wireless Mic System" class="rounded text-emerald-600 item-checkbox">
-                                        <span>Wireless Mic System</span>
-                                    </label>
-                                    <input type="text" name="upgrades_audio_Wireless_Mic_System_text" placeholder="Specify item (e.g., Shure ULX-D)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
-                                    <input type="url" name="upgrades_audio_Wireless_Mic_System_link" placeholder="Paste link (Optional)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
-                                </div>
-                                <!-- Speakers -->
-                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
-                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
-                                        <input type="checkbox" name="upgrades_audio_Speakers_check" value="Speakers" class="rounded text-emerald-600 item-checkbox">
-                                        <span>Speakers</span>
-                                    </label>
-                                    <input type="text" name="upgrades_audio_Speakers_text" placeholder="Specify item (e.g., FOH speakers)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
-                                    <input type="url" name="upgrades_audio_Speakers_link" placeholder="Paste link (Optional)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
-                                </div>
-                                <!-- Mixing Console -->
-                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
-                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
-                                        <input type="checkbox" name="upgrades_audio_Mixing_Console_check" value="Mixing Console" class="rounded text-emerald-600 item-checkbox">
-                                        <span>Mixing Console</span>
-                                    </label>
-                                    <input type="text" name="upgrades_audio_Mixing_Console_text" placeholder="Specify item (e.g., Midas M32)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
-                                    <input type="url" name="upgrades_audio_Mixing_Console_link" placeholder="Paste link (Optional)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
-                                </div>
-                                <!-- Other Audio -->
-                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
-                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
-                                        <input type="checkbox" name="upgrades_audio_Other_check" value="Other" class="rounded text-emerald-600 item-checkbox other-checkbox">
-                                        <span>Other:</span>
-                                    </label>
-                                    <input type="text" name="upgrades_audio_Other_text" placeholder="Specify item" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-text">
-                                    <input type="url" name="upgrades_audio_Other_link" placeholder="Paste link (Optional)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-url">
-                                </div>
-                            </div>
-                        </details>
-                        <!-- VIDEO UPGRADES -->
-                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
-                            <summary class="font-medium text-gray-700 flex justify-between items-center">Video System</summary>
-                            <div class="mt-2 space-y-2">
-                                <!-- Projector -->
-                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
-                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
-                                        <input type="checkbox" name="upgrades_video_Projector_check" value="Projector" class="rounded text-emerald-600 item-checkbox">
-                                        <span>Projector</span>
-                                    </label>
-                                    <input type="text" name="upgrades_video_Projector_text" placeholder="Specify item (e.g., 4K Laser Projector)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
-                                    <input type="url" name="upgrades_video_Projector_link" placeholder="Paste link (Optional)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
-                                </div>
-                                <!-- Live Stream Rig -->
-                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
-                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
-                                        <input type="checkbox" name="upgrades_video_Live_Stream_Rig_check" value="Live Stream Rig" class="rounded text-emerald-600 item-checkbox">
-                                        <span>Live Stream Rig</span>
-                                    </label>
-                                    <input type="text" name="upgrades_video_Live_Stream_Rig_text" placeholder="Specify item (e.g., Encoder, Switcher)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
-                                    <input type="url" name="upgrades_video_Live_Stream_Rig_link" placeholder="Paste link (Optional)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
-                                </div>
-                                <!-- Other Video -->
-                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
-                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
-                                        <input type="checkbox" name="upgrades_video_Other_check" value="Other" class="rounded text-emerald-600 item-checkbox other-checkbox">
-                                        <span>Other:</span>
-                                    </label>
-                                    <input type="text" name="upgrades_video_Other_text" placeholder="Specify item" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-text">
-                                    <input type="url" name="upgrades_video_Other_link" placeholder="Paste link (Optional)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-url">
-                                </div>
-                            </div>
-                        </details>
-                        <!-- LIGHTING UPGRADES -->
-                        <details class="bg-gray-50 p-3 rounded-lg border border-gray-300 cursor-pointer">
-                            <summary class="font-medium text-gray-700 flex justify-between items-center">Lighting System</summary>
-                            <div class="mt-2 space-y-2">
-                                <!-- Stage Lights -->
-                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
-                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
-                                        <input type="checkbox" name="upgrades_lighting_Stage_Lights_check" value="Stage Lights" class="rounded text-emerald-600 item-checkbox">
-                                        <span>Stage Lights</span>
-                                    </label>
-                                    <input type="text" name="upgrades_lighting_Stage_Lights_text" placeholder="Specify item (e.g., LED Pars, Moving Heads)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
-                                    <input type="url" name="upgrades_lighting_Stage_Lights_link" placeholder="Paste link (Optional)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
-                                </div>
-                                <!-- DMX Controller -->
-                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
-                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
-                                        <input type="checkbox" name="upgrades_lighting_DMX_Controller_check" value="DMX Controller" class="rounded text-emerald-600 item-checkbox">
-                                        <span>DMX Controller</span>
-                                    </label>
-                                    <input type="text" name="upgrades_lighting_DMX_Controller_text" placeholder="Specify item (e.g., Console model)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-text">
-                                    <input type="url" name="upgrades_lighting_DMX_Controller_link" placeholder="Paste link (Optional)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:ring-1 focus:ring-emerald-500 text-sm item-input-url">
-                                </div>
-                                <!-- Other Lighting -->
-                                <div class="flex flex-wrap items-center space-x-2 text-gray-700" data-item-group>
-                                    <label class="flex items-center space-x-2 w-full sm:w-auto">
-                                        <input type="checkbox" name="upgrades_lighting_Other_check" value="Other" class="rounded text-emerald-600 item-checkbox other-checkbox">
-                                        <span>Other:</span>
-                                    </label>
-                                    <input type="text" name="upgrades_lighting_Other_text" placeholder="Specify item" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-text">
-                                    <input type="url" name="upgrades_lighting_Other_link" placeholder="Paste link (Optional)" disabled class="w-full mt-2 sm:w-auto sm:flex-grow sm:mt-0 ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-500 item-input-url">
-                                </div>
-                            </div>
-                        </details>
+
+                <!-- UPGRADES SUB-CATEGORY (Now Structured) -->
+                <div id="upgradesSubcategory" class="hidden space-y-4">
+                    <h3 class="text-lg font-semibold text-gray-700">Upgrade Details</h3>
+                    <!-- Audio Upgrades -->
+                    <div>
+                        <label for="upgradesAudioDetails" class="block text-sm font-medium text-gray-700 mb-1">Audio System Upgrade</label>
+                        <textarea id="upgradesAudioDetails" name="upgradesAudioDetails" rows="3" placeholder="Describe the desired upgrade and the justification." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200"></textarea>
+                    </div>
+                    <!-- Video Upgrades -->
+                    <div>
+                        <label for="upgradesVideoDetails" class="block text-sm font-medium text-gray-700 mb-1">Video System Upgrade</label>
+                        <textarea id="upgradesVideoDetails" name="upgradesVideoDetails" rows="3" placeholder="Describe the desired upgrade and the justification." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200"></textarea>
+                    </div>
+                    <!-- Lighting Upgrades -->
+                    <div>
+                        <label for="upgradesLightingDetails" class="block text-sm font-medium text-gray-700 mb-1">Lighting System Upgrade</label>
+                        <textarea id="upgradesLightingDetails" name="upgradesLightingDetails" rows="3" placeholder="Describe the desired upgrade and the justification." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200"></textarea>
                     </div>
                 </div>
-            </div>
 
-            <!-- Description -->
-            <div>
-                <label for="itemDescription" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                <textarea id="itemDescription" name="itemDescription" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200"></textarea>
             </div>
-
-            <!-- Urgency -->
+            
+            <!-- Other Details (Optional for all) -->
             <div>
-                <label for="urgency" class="block text-sm font-medium text-gray-700 mb-1">Urgency</label>
-                <select id="urgency" name="urgency" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200">
-                    <option value="" disabled selected>Select urgency</option>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                </select>
+                <label for="otherDetails" class="block text-sm font-medium text-gray-700 mb-1">Additional Details / Notes (Optional)</label>
+                <textarea id="otherDetails" name="otherDetails" rows="3" placeholder="Any extra information the team should know." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200"></textarea>
             </div>
 
             <!-- Submit Button -->
-            <button type="button" id="submitBtn" class="w-full bg-emerald-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-200">Submit Request</button>
-        </form>
-
-        <!-- Requests Log Section -->
-        <div class="mt-8 pt-8 border-t border-gray-300">
-            <h3 class="text-2xl font-bold text-gray-700 mb-4">Requests Log</h3>
-            <div id="requestsContainer" class="space-y-4">
-                <p class="text-gray-500 text-center" id="loadingMessage">Loading requests...</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Confirmation Modal -->
-    <div id="confirmModal" class="modal-overlay fixed inset-0 bg-gray-600 bg-opacity-75 items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-lg shadow-xl p-8 w-full max-w-sm">
-            <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Confirm Your Request</h2>
-            <div id="summaryContent" class="text-gray-700 mb-6 space-y-2"></div>
-            <div class="flex justify-between space-x-4">
-                <button id="cancelConfirmBtn" class="flex-1 bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg hover:bg-gray-400 transition-colors duration-200">Cancel</button>
-                <button id="sendRequestBtn" class="flex-1 bg-emerald-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-emerald-700 transition-colors duration-200">Send Request</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Status Modal -->
-    <div id="statusModal" class="modal-overlay fixed inset-0 bg-gray-600 bg-opacity-75 items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-lg shadow-xl p-8 w-full max-w-sm">
-            <h2 id="modalTitle" class="text-2xl font-bold mb-4 text-center text-gray-800"></h2>
-            <p id="modalMessage" class="text-center text-gray-600 mb-6"></p>
             <div class="flex justify-center">
-                <button id="closeModalBtn" class="bg-emerald-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-emerald-700 transition-colors duration-200">Close</button>
+                <button type="submit" id="submitButton" class="w-full bg-emerald-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-500 focus:ring-opacity-50 transition-colors duration-200 shadow-md">
+                    Submit Request
+                </button>
             </div>
-        </div>
+        </form>
     </div>
 
+    <!-- Confirmation Modal (Initially Hidden) -->
+    <div id="confirmationModal" class="modal-overlay fixed inset-0 z-50 bg-black bg-opacity-50 justify-center items-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-sm text-center transform scale-95 transition-all duration-300">
+            <h3 class="text-2xl font-bold text-emerald-600 mb-4">Request Submitted!</h3>
+            <!-- UPDATED TEXT HERE -->
+            <p class="text-gray-700 mb-6">Your request has been successfully submitted</p>
+            <button id="closeModalButton" class="bg-emerald-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-500 focus:ring-opacity-50">
+                Close
+            </button>
+        </div>
+    </div>
+    
+    <!-- JavaScript for Form Logic -->
     <script>
-        // References to UI elements
-        const requestsContainer = document.getElementById('requestsContainer');
-        const loadingMessage = document.getElementById('loadingMessage');
-        const confirmModal = document.getElementById('confirmModal');
-        const statusModal = document.getElementById('statusModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalMessage = document.getElementById('modalMessage');
-        const summaryContent = document.getElementById('summaryContent');
-        const sendRequestBtn = document.getElementById('sendRequestBtn');
-        const cancelConfirmBtn = document.getElementById('cancelConfirmBtn');
-        const requestForm = document.getElementById('requestForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const closeModalBtn = document.getElementById('closeModalBtn'); // Added missing reference
-
-        // --- Configuration ---
-        const LOCAL_STORAGE_KEY = 'creativeArtsRequests';
-        
-        // TO ACTIVATE LIVE SUBMISSION VIA FORMSPREE:
-        // 1. Get your endpoint from Formspree and replace the placeholder below.
-        // 2. In the sendRequestBtn.onclick function, uncomment the Formspree block and comment out the Local Storage block.
-        const FORMSPREE_ENDPOINT = "https://formspree.io/f/xnnbeqvb";
-        
-        // Variable to hold the data object between confirmation steps
-        let currentSubmissionData = {};
-
-        // --- Local Storage Functions ---
-        function getRequestsFromLocalStorage() {
-            try {
-                const requests = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
-                return requests;
-            } catch (e) {
-                console.error("Failed to parse requests from local storage", e);
-                return [];
-            }
-        }
-
-        function saveRequestToLocalStorage(request) {
-            const requests = getRequestsFromLocalStorage();
-            requests.push(request);
-            try {
-                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(requests));
-                return true;
-            } catch (e) {
-                console.error("Failed to save request to local storage", e);
-                return false;
-            }
-        }
-
-        // --- UI Rendering ---
-        function renderRequests(requests) {
-            if (requests.length === 0) {
-                loadingMessage.textContent = "No requests found yet. Submit one to see it appear here!";
-                return;
-            }
-
-            loadingMessage.classList.add('hidden');
-            requestsContainer.innerHTML = '';
-            
-            // Sort requests by timestamp in descending order
-            requests.sort((a, b) => {
-                return new Date(b.timestamp) - new Date(a.timestamp);
-            });
-
-            requests.forEach(req => {
-                const requestCard = document.createElement('div');
-                requestCard.className = 'bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200';
-                
-                const formattedDate = new Date(req.timestamp).toLocaleString();
-                
-                // Parse subCategory from JSON string
-                let subCategoryList = '';
-                try {
-                    const parsedCategories = JSON.parse(req.subCategory);
-                    subCategoryList = parsedCategories.map(item => {
-                        const linkHtml = item.link ? `<a href="${item.link}" target="_blank" class="text-emerald-500 hover:underline">(Link)</a>` : '';
-                        return `<li>${item.name} (${item.subcategory}) ${linkHtml}</li>`;
-                    }).join('');
-                } catch(e) {
-                    console.error("Error parsing subCategory JSON:", e);
-                }
-
-
-                requestCard.innerHTML = `
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
-                        <h4 class="text-lg font-bold text-emerald-600">${req.requesterName} - ${req.requestType}</h4>
-                        <span class="text-sm text-gray-500">${formattedDate}</span>
-                    </div>
-                    <div class="text-sm text-gray-700 space-y-1">
-                        <p><span class="font-semibold">Urgency:</span> ${req.urgency}</p>
-                        ${req.itemDescription ? `<p><span class="font-semibold">Description:</span> ${req.itemDescription}</p>` : ''}
-                        ${subCategoryList ? `<p class="mt-4 font-semibold">Selected Items:</p><ul class="list-disc list-inside space-y-1">${subCategoryList}</ul>` : ''}
-                    </div>
-                `;
-                requestsContainer.appendChild(requestCard);
-            });
-        }
-        
-        // --- Event Handlers ---
-
-        submitBtn.addEventListener('click', () => {
-            if (!requestForm.checkValidity()) {
-                requestForm.reportValidity();
-                return;
-            }
-
-            // Start pre-submission process
-            submitBtn.disabled = true;
-
-            const formData = new FormData(requestForm);
-            const data = Object.fromEntries(formData.entries());
-
-            // Collect selected items from the new structure
-            const selectedItems = [];
-            
-            // Collect all checked item checkboxes (only in Supplies and Upgrades)
-            document.querySelectorAll('#suppliesSubcategory .item-checkbox:checked, #upgradesSubcategory .item-checkbox:checked').forEach(checkbox => {
-                const parentGroup = checkbox.closest('[data-item-group]');
-                if (!parentGroup) return;
-
-                const categoryType = checkbox.name.split('_')[0] || 'Misc';
-                const nameParts = checkbox.name.split('_');
-                const subcategory = nameParts[1]; 
-                const baseItemValue = checkbox.value; 
-
-                const customInput = parentGroup.querySelector('.item-input-text');
-                const customLinkInput = parentGroup.querySelector('.item-input-url');
-
-                let itemValue = baseItemValue;
-                let itemLink = '';
-
-                if (customInput && customInput.value.trim() !== '') {
-                    itemValue = customInput.value.trim();
-                }
-                
-                if (customLinkInput && customLinkInput.value.trim() !== '') {
-                    itemLink = customLinkInput.value.trim();
-                }
-
-                selectedItems.push({
-                    category: categoryType,
-                    subcategory: subcategory,
-                    name: itemValue,
-                    link: itemLink
-                });
-            });
-
-            // Collect selected items from the old repair structure
-            document.querySelectorAll('#repairsSubcategory input[type="checkbox"]:checked').forEach(checkbox => {
-                const isOther = checkbox.name.includes('_other_checkbox');
-                let itemValue = checkbox.value;
-                let subcategory = checkbox.name.split('_')[1];
-
-                if (isOther) {
-                    const customInput = checkbox.closest('.flex').querySelector('input[type="text"]');
-                    itemValue = customInput ? customInput.value.trim() || 'Other' : 'Other';
-                    subcategory = subcategory + " (Custom Repair)";
-                } else if (checkbox.name.includes('repairs_audio[]') || checkbox.name.includes('repairs_video[]') || checkbox.name.includes('repairs_lighting[]')) {
-                    const categoryMatch = checkbox.name.match(/repairs_(\w+)\[\]/);
-                    if (categoryMatch) {
-                        subcategory = categoryMatch[1];
-                    }
-                }
-
-                if (itemValue && itemValue !== 'on') { 
-                    selectedItems.push({
-                        category: 'Repairs',
-                        subcategory: subcategory,
-                        name: itemValue,
-                        link: ''
-                    });
-                }
-            });
-
-            data.subCategory = JSON.stringify(selectedItems);
-            data.timestamp = new Date().toISOString();
-            
-            // Store data globally for the final submission step
-            currentSubmissionData = data;
-
-            // Populate and show the confirmation modal
-            summaryContent.innerHTML = `
-                <p><span class="font-semibold">Requester:</span> ${data.requesterName}</p>
-                <p><span class="font-semibold">Request Type:</span> ${data.requestType}</p>
-                <p><span class="font-semibold">Urgency:</span> ${data.urgency}</p>
-                ${data.itemDescription ? `<p><span class="font-semibold">Description:</span> ${data.itemDescription}</p>` : ''}
-                ${selectedItems.length > 0 ? `<p class="mt-4 font-semibold">Selected Items:</p>
-                <ul class="list-disc list-inside space-y-1">${selectedItems.map(item => {
-                    const linkDisplay = item.link ? ` <a href="${item.link}" target="_blank" class="text-emerald-500 hover:underline">(Link)</a>` : '';
-                    return `<li>${item.name} (${item.subcategory})${linkDisplay}</li>`;
-                }).join('')}</ul>` : ''}
-            `;
-            confirmModal.classList.add('open');
-        });
-
-        sendRequestBtn.addEventListener('click', async () => {
-            confirmModal.classList.remove('open');
-            submitBtn.disabled = false;
-            
-            // --- ACTIVE SUBMISSION METHOD: LOCAL STORAGE ---
-            const success = saveRequestToLocalStorage(currentSubmissionData);
-
-            if (success) {
-                modalTitle.textContent = "Request Submitted Successfully!";
-                modalMessage.textContent = "Your request has been saved to the **local log** (browser storage).";
-                requestForm.reset();
-                renderRequests(getRequestsFromLocalStorage()); // Rerender the log
-                statusModal.classList.add('open');
-                return;
-            }
-            // -----------------------------------------------
-
-
-            // --- FORMSPREE SUBMISSION (COMMENTED OUT) ---
-            /*
-            if (FORMSPREE_ENDPOINT !== "YOUR_FORMSPREE_ENDPOINT_HERE" && FORMSPREE_ENDPOINT.startsWith('http')) {
-                try {
-                    const response = await fetch(FORMSPREE_ENDPOINT, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(currentSubmissionData),
-                    });
-
-                    if (response.ok) {
-                        modalTitle.textContent = "Request Submitted Successfully (Formspree)!";
-                        modalMessage.textContent = "Your request has been emailed.";
-                        requestForm.reset();
-                    } else {
-                        modalTitle.textContent = "Submission Failed (Formspree Error)";
-                        modalMessage.textContent = "The external form submission failed. Check your console and endpoint.";
-                    }
-                } catch (error) {
-                    console.error("Fetch error:", error);
-                    modalTitle.textContent = "Submission Failed (Network Error)";
-                    modalMessage.textContent = "Could not reach the server. Check your network connection.";
-                }
-                statusModal.classList.add('open');
-                return;
-            }
-            */
-            // ------------------------------------------
-
-            // Fallback if local storage failed
-            if (!success) {
-                modalTitle.textContent = "Submission Failed";
-                modalMessage.textContent = "There was an error saving your request locally.";
-                statusModal.classList.add('open');
-            }
-        });
-
-        // Hide confirmation modal
-        cancelConfirmBtn.addEventListener('click', () => {
-            confirmModal.classList.remove('open');
-            submitBtn.disabled = false;
-        });
-        
-        // Hide status modal
-        closeModalBtn.addEventListener('click', () => {
-            statusModal.classList.remove('open');
-        });
-
-        // Form logic to show/hide sub-category dropdowns and toggle description required attribute
-        const requestTypeRadios = document.querySelectorAll('input[name="requestType"]');
-        const suppliesSubcategoryDiv = document.getElementById('suppliesSubcategory');
-        const repairsSubcategoryDiv = document.getElementById('repairsSubcategory');
-        const upgradesSubcategoryDiv = document.getElementById('upgradesSubcategory');
-        const subcategoriesContainer = document.getElementById('subcategories');
-        const itemDescription = document.getElementById('itemDescription');
-
-        requestTypeRadios.forEach(radio => {
-            radio.addEventListener('change', (event) => {
-                subcategoriesContainer.classList.remove('hidden');
-                suppliesSubcategoryDiv.classList.add('hidden');
-                repairsSubcategoryDiv.classList.add('hidden');
-                upgradesSubcategoryDiv.classList.add('hidden');
-
-                if (event.target.value === 'Supplies') {
-                    suppliesSubcategoryDiv.classList.remove('hidden');
-                    itemDescription.removeAttribute('required'); // Un-require for Supplies
-                } else if (event.target.value === 'Repairs') {
-                    repairsSubcategoryDiv.classList.remove('hidden');
-                    itemDescription.setAttribute('required', 'required'); // Require for Repairs
-                } else if (event.target.value === 'Upgrades') {
-                    upgradesSubcategoryDiv.classList.remove('hidden');
-                    itemDescription.setAttribute('required', 'required'); // Require for Upgrades
-                }
-            });
-        });
-
-        // **GENERALIZED LOGIC FOR CUSTOM TEXT INPUTS**
         document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('requestForm');
+            const requestTypeRadios = document.querySelectorAll('input[name="requestType"]');
+            const subcategoriesDiv = document.getElementById('subcategories');
+            const suppliesSub = document.getElementById('suppliesSubcategory');
+            const repairsSub = document.getElementById('repairsSubcategory');
+            const upgradesSub = document.getElementById('upgradesSubcategory');
+            const allSubs = [suppliesSub, repairsSub, upgradesSub];
 
-            document.querySelectorAll('#suppliesSubcategory .item-checkbox, #upgradesSubcategory .item-checkbox').forEach(checkbox => {
-                checkbox.addEventListener('change', (event) => {
-                    const parentGroup = event.target.closest('[data-item-group]');
-                    if (!parentGroup) return;
+            const confirmationModal = document.getElementById('confirmationModal');
+            const closeModalButton = document.getElementById('closeModalButton');
+            const submitButton = document.getElementById('submitButton');
+            
+            // Formspree endpoint
+            const formspreeUrl = 'https://formspree.io/f/xnnbeqvb';
 
-                    const customInput = parentGroup.querySelector('.item-input-text');
-                    const customLinkInput = parentGroup.querySelector('.item-input-url');
-                    
-                    if (event.target.checked) {
-                        if (customInput) customInput.removeAttribute('disabled');
-                        if (customLinkInput) customLinkInput.removeAttribute('disabled');
-                        if (customInput) customInput.focus();
+            // Function to dynamically set the required attribute for a single section type
+            const setDetailsRequired = (sectionId, required) => {
+                const fields = document.querySelectorAll(`#${sectionId} textarea`);
+                fields.forEach(field => {
+                    if (required) {
+                        field.setAttribute('required', 'required');
                     } else {
-                        if (customInput) customInput.setAttribute('disabled', 'disabled');
-                        if (customLinkInput) customLinkInput.setAttribute('disabled', 'disabled');
-                        if (customInput) customInput.value = '';
-                        if (customLinkInput) customLinkInput.value = '';
+                        field.removeAttribute('required');
                     }
+                });
+            };
+
+            // Function to show/hide subcategory sections
+            const updateSubcategories = (selectedType) => {
+                // Hide all subcategories and remove required attributes
+                allSubs.forEach(sub => sub.classList.add('hidden'));
+                setDetailsRequired('repairsSubcategory', false);
+                setDetailsRequired('upgradesSubcategory', false);
+
+                if (selectedType) {
+                    subcategoriesDiv.classList.remove('hidden');
+                    // Show the relevant subcategory and set required fields
+                    if (selectedType === 'Supplies') {
+                        suppliesSub.classList.remove('hidden');
+                    } else if (selectedType === 'Repairs') {
+                        repairsSub.classList.remove('hidden');
+                        // Setting only one field as required to pass browser validation, but ideally
+                        // users should fill in the relevant one. For simplicity, we make Audio required.
+                        document.getElementById('repairsAudioDetails').setAttribute('required', 'required');
+                    } else if (selectedType === 'Upgrades') {
+                        upgradesSub.classList.remove('hidden');
+                        document.getElementById('upgradesAudioDetails').setAttribute('required', 'required');
+                    }
+                } else {
+                    subcategoriesDiv.classList.add('hidden');
+                }
+            };
+
+            // Event listener for main request type radio buttons
+            requestTypeRadios.forEach(radio => {
+                radio.addEventListener('change', (event) => {
+                    updateSubcategories(event.target.value);
                 });
             });
 
-            // Handle the Repair 'Other' fields which use the old structure (no link)
-             document.querySelectorAll('#repairsSubcategory input[name$="_other_checkbox"]').forEach(checkbox => {
-                checkbox.addEventListener('change', (event) => {
-                    const parentFlex = event.target.closest('.flex');
-                    const customInput = parentFlex.querySelector('input[type="text"]');
+            // Event listeners for checkbox/input groups in Supplies
+            document.querySelectorAll('[data-item-group]').forEach(group => {
+                const checkbox = group.querySelector('.item-checkbox');
+                const inputText = group.querySelector('.item-input-text');
+                const inputUrl = group.querySelector('.item-input-url');
+                
+                // Enable/disable text and url inputs based on checkbox state
+                checkbox.addEventListener('change', () => {
+                    const isChecked = checkbox.checked;
+                    inputText.disabled = !isChecked;
+                    inputUrl.disabled = !isChecked;
                     
-                    if (event.target.checked) {
-                        if (customInput) customInput.removeAttribute('disabled');
-                        if (customInput) customInput.focus();
-                    } else {
-                        if (customInput) customInput.setAttribute('disabled', 'disabled');
-                        if (customInput) customInput.value = '';
+                    // Clear fields if unchecked
+                    if (!isChecked) {
+                        inputText.value = '';
+                        inputUrl.value = '';
+                    }
+                    
+                    // Set requirement for 'Other' text input
+                    if (checkbox.classList.contains('other-checkbox')) {
+                        if (isChecked) {
+                            inputText.setAttribute('required', 'required');
+                        } else {
+                            inputText.removeAttribute('required');
+                        }
                     }
                 });
             });
-
 
             // Set initial date on load
             const dateInput = document.getElementById('requestDate');
@@ -741,9 +326,124 @@
             const month = String(today.getMonth() + 1).padStart(2, '0');
             const day = String(today.getDate()).padStart(2, '0');
             dateInput.value = `${year}-${month}-${day}`;
+            
+            // Form submission handler
+            form.addEventListener('submit', async (event) => { // Made function async
+                event.preventDefault();
+                
+                // Disable button and show loading state
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending...';
+                submitButton.classList.remove('hover:bg-emerald-700');
+                submitButton.classList.add('bg-emerald-400', 'cursor-not-allowed');
+                
+                // Data for Formspree submission (raw FormData)
+                const submissionFormData = new FormData(form);
+                
+                // --- Start Custom Data Collection/Logging Logic (Logs to Console) ---
+                // This is for local debugging/logging the structured data
+                const dataForConsoleLog = {};
+                
+                // Collect general fields
+                dataForConsoleLog.requesterName = submissionFormData.get('requesterName');
+                dataForConsoleLog.requestDate = submissionFormData.get('requestDate');
+                dataForConsoleLog.requestType = submissionFormData.get('requestType');
+                dataForConsoleLog.otherDetails = submissionFormData.get('otherDetails');
+                dataForConsoleLog.details = {};
+                dataForConsoleLog.supplies = [];
 
-            // Load existing requests from local storage on page load
-            renderRequests(getRequestsFromLocalStorage());
+
+                // Handle specific details based on request type
+                if (dataForConsoleLog.requestType === 'Repairs') {
+                    dataForConsoleLog.details.audio = submissionFormData.get('repairsAudioDetails');
+                    dataForConsoleLog.details.video = submissionFormData.get('repairsVideoDetails');
+                    dataForConsoleLog.details.lighting = submissionFormData.get('repairsLightingDetails');
+                } else if (dataForConsoleLog.requestType === 'Upgrades') {
+                    dataForConsoleLog.details.audio = submissionFormData.get('upgradesAudioDetails');
+                    dataForConsoleLog.details.video = submissionFormData.get('upgradesVideoDetails');
+                    dataForConsoleLog.details.lighting = submissionFormData.get('upgradesLightingDetails');
+                } else if (dataForConsoleLog.requestType === 'Supplies') {
+                    // Handle Supplies: iterate over all item groups and check which are selected
+                    document.querySelectorAll('[data-item-group]').forEach(group => {
+                        const checkbox = group.querySelector('.item-checkbox');
+                        if (checkbox && checkbox.checked) {
+                            const key = checkbox.name.replace('_check', '');
+                            const keyParts = key.split('_');
+                            
+                            const item = submissionFormData.get(key + '_text') || checkbox.value;
+                            const link = submissionFormData.get(key + '_link') || checkbox.dataset.link || '';
+                            
+                            dataForConsoleLog.supplies.push({
+                                category: keyParts[1], // e.g., 'audio', 'video', or 'lighting'
+                                item: item,
+                                link: link
+                            });
+                        }
+                    });
+                }
+                
+                // Log the collected data (for demonstration purposes)
+                console.log('--- FORM DATA SUBMITTED (Simulated & Logged) ---');
+                console.log(JSON.stringify(dataForConsoleLog, null, 2));
+                
+                // --- End Custom Data Collection/Logging Logic ---
+
+                let response;
+                try {
+                    // Send the raw FormData to Formspree using AJAX (fetch)
+                    response = await fetch(formspreeUrl, {
+                        method: 'POST',
+                        body: submissionFormData,
+                        // The 'Accept' header is necessary for Formspree's AJAX success response
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        // Formspree submission successful
+                        console.log('Formspree submission successful!');
+                        confirmationModal.classList.add('open');
+                        
+                        // Clear the form and reset state for a new entry
+                        form.reset();
+                        updateSubcategories(null); // Reset visibility
+                        document.getElementById('repairsAudioDetails').removeAttribute('required'); // Clean up required state
+                        document.getElementById('upgradesAudioDetails').removeAttribute('required'); // Clean up required state
+                        dateInput.value = `${year}-${month}-${day}`; // Reset date after form.reset()
+                    } else {
+                        // Formspree failed (e.g., missing required field, rate limit)
+                        const errorData = await response.json();
+                        console.error('Formspree submission failed:', response.status, errorData);
+                        alert(`Submission failed! Status: ${response.status}. Please check the console for details or ensure all required fields are filled.`);
+                    }
+
+                } catch (error) {
+                    // Network error
+                    console.error('Network or unexpected error during submission:', error);
+                    alert('A network error occurred. Please try again.');
+                } finally {
+                    // Re-enable button and reset loading state
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit Request';
+                    submitButton.classList.add('hover:bg-emerald-700');
+                    submitButton.classList.remove('bg-emerald-400', 'cursor-not-allowed');
+                }
+            });
+
+            // Close modal functionality
+            closeModalButton.addEventListener('click', () => {
+                confirmationModal.classList.remove('open');
+            });
+
+            // Allow clicking outside the modal to close it
+            confirmationModal.addEventListener('click', (event) => {
+                if (event.target === confirmationModal) {
+                    confirmationModal.classList.remove('open');
+                }
+            });
+            
+            // Initialize visibility state on load
+            const initialSelectedType = document.querySelector('input[name="requestType"]:checked')?.value;
+            updateSubcategories(initialSelectedType);
         });
     </script>
 </body>
